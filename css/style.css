@@ -125,6 +125,56 @@ main h2 {
   min-height: 70vh;
 }
 
+/* ---------------- Sliding hero images ---------------- */
+/* Container must hide overflow and be positioned for absolute children */
+.dynamic-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Each slide is an absolutely positioned <img> that fills the container.
+   We animate `transform` to slide images left/right without stretching. */
+.hero-img {
+  position: absolute;
+  inset: 0;
+  /* top:0; right:0; bottom:0; left:0; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: translateX(0);
+  transition: transform 600ms cubic-bezier(.22, .9, .35, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.hero-img.next {
+  transform: translateX(100%);
+}
+
+.hero-img.leaving {
+  transform: translateX(-100%);
+}
+
+/* Keep slides visually behind intro text/buttons and allow clicks through */
+.dynamic-hero .hero-img {
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure heading and action buttons sit above the slides */
+.dynamic-hero> :not(.hero-img) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Small tweak: keep the original background as a fallback when JS is disabled */
+@supports (object-fit: cover) {
+  #intro-section {
+    background: none;
+  }
+}
+
 /* Sub-Page Banner Specifics */
 .page-banner {
   height: 30vh;
