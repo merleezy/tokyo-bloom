@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   const images = [
-    '../images/sushi_background.jpg',
-    '../images/sushi-plate.jpg',
-    '../images/kitchen-interior.jpg'
+    '../images/sushi_background.avif',
+    '../images/sushi-plate.avif',
+    '../images/kitchen-interior.avif'
   ];
 
   let currentIndex = 0;

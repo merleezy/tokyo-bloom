@@ -125,6 +125,13 @@ main h2 {
   min-height: 70vh;
 }
 
+#intro-section h1 {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  font-size: 4em;
+  margin-bottom: 0.5em;
+  font-family: 'Lulo Clean', sans-serif;
+}
+
 /* ---------------- Sliding hero images ---------------- */
 .dynamic-hero {
   position: relative;
@@ -139,7 +146,7 @@ main h2 {
   object-fit: cover;
   display: block;
   transform: translateX(0);
-  transition: transform 600ms cubic-bezier(.22, .9, .35, 1);
+  transition: transform 800ms cubic-bezier(.22, .9, .35, 1);
   will-change: transform;
   backface-visibility: hidden;
 }
