@@ -43,12 +43,6 @@ main h2 {
   font-family: 'Lulo Clean', sans-serif;
 }
 
-#intro-title {
-  font-size: 4em;
-  margin-bottom: 0.5em;
-  font-family: 'Lulo Clean', sans-serif;
-}
-
 /* -------------------- Header / Nav ------------------ */
 #site-header {
   display: flex;
