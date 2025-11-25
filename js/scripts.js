@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     heroElement.appendChild(nextImg);
 
     // Force a reflow so the browser registers the start position
-    // before we change transforms — this enables the CSS transition.
+    // before we change transforms 
     nextImg.offsetHeight;
 
     // Start the sliding animation
