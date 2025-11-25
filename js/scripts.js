@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   const images = [
-    '../images/sushi_background.avif',
-    '../images/sushi-plate.avif',
-    '../images/kitchen-interior.avif'
+    '../images/sushi_background.jpg',
+    '../images/sushi-plate.jpg',
+    '../images/kitchen-interior.jpg'
   ];
 
   let currentIndex = 0;
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     heroElement.appendChild(nextImg);
 
     // Force a reflow so the browser registers the start position
-    // before we change transforms 
+    // before we change transforms — this enables the CSS transition.
     nextImg.offsetHeight;
 
     // Start the sliding animation
