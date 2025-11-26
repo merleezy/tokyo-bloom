@@ -3,7 +3,7 @@ require_once 'dbconnect.php';
 
 // header("Content-Type: application/json; charset=UTF-8");
 
-$query = "SELECT * FROM reservations";
+$query = "SELECT * FROM products";
 
 try {
     $stmt = $conn->query($query);
