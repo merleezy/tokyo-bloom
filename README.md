@@ -13,8 +13,6 @@ Tokyo Bloom is a modern Japanese restaurant website that showcases the menu, all
 - Online Order Page: Option for users to place takeout orders directly from the website.
 - Contact Page: Contact information, location map, and social media links.
 
-Use WebP or AVIF image files for better performance.
-
 ## Database Schema
 ### Menu Items Table
   - id (INT, Primary Key, Auto Increment)
