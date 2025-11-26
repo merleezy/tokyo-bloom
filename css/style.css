@@ -108,9 +108,7 @@ main h2 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* disable parallax-style fixed background to avoid stretching/warping */
   background-attachment: scroll;
-  /* background-image is a non-JS fallback; JS-driven <img> slides are preferred */
   background-image: url('../images/sushi_background.jpg');
   color: white;
 }
