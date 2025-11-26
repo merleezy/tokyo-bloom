@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <title>Checkout | Tokyo Bloom</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/scripts.js"></script>
 </head>
 <body id="top">
   <header id="site-header">
@@ -47,16 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php if ($orderPlaced): ?>
         <h2>Thank you!</h2>
         <p>Your order has been placed. We’ll begin preparing it right away.</p>
-        <p><a href="order.php">Back to Order Online</a></p>
+        <p><a href="order.php" class="button-link">Back to Order Online</a></p>
       <?php else: ?>
         <?php if (empty($_SESSION['cart'])): ?>
           <p>Your cart is empty.</p>
-          <p><a href="order.php">Browse the menu and add some items.</a></p>
+          <p><a href="order.php" class="button-link">Browse the menu and add some items.</a></p>
         <?php else: ?>
           <p>Your total is <strong>$<?= number_format($total, 2) ?></strong>.</p>
           <p>Confirm your order below.</p>
           <form action="checkout.php" method="post">
-            <button type="submit">Place Order</button>
+            <button type="submit" class="button-link">Place Order</button>
           </form>
         <?php endif; ?>
       <?php endif; ?>

@@ -90,7 +90,7 @@ if (isset($_GET['error'])) {
           </div>
         </div>
 
-        <button type="submit" id="submit-button">Complete reservation</button>
+        <button type="submit" class="button-link">Complete reservation</button>
       </form>
     </section>
   </main>

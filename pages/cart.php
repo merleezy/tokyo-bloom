@@ -3,71 +3,74 @@ session_start();
 require '../dbconnect.php';
 
 if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
+  $_SESSION['cart'] = [];
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
+  $action = $_POST['action'] ?? '';
 
-    if ($action === 'add') {
-        $id       = (int)($_POST['id'] ?? 0);
-        $quantity = max(1, (int)($_POST['quantity'] ?? 1));
+  if ($action === 'add') {
+    $id = (int) ($_POST['id'] ?? 0);
+    $quantity = max(1, (int) ($_POST['quantity'] ?? 1));
 
-        if ($id > 0) {
-            // Always look up item data from DB to avoid mismatches
-            $stmt = $conn->prepare("SELECT id, name, price FROM menu_items WHERE id = :id");
-            $stmt->execute([':id' => $id]);
-            $item = $stmt->fetch();
+    if ($id > 0) {
+      // Always look up item data from DB to avoid mismatches
+      $stmt = $conn->prepare("SELECT id, name, price FROM menu_items WHERE id = :id");
+      $stmt->execute([':id' => $id]);
+      $item = $stmt->fetch();
 
-            if ($item) {
-                if (!isset($_SESSION['cart'][$id])) {
-                    $_SESSION['cart'][$id] = [
-                        'name'     => $item['name'],
-                        'price'    => (float)$item['price'],
-                        'quantity' => 0,
-                    ];
-                }
-                $_SESSION['cart'][$id]['quantity'] += $quantity;
-            }
+      if ($item) {
+        if (!isset($_SESSION['cart'][$id])) {
+          $_SESSION['cart'][$id] = [
+            'name' => $item['name'],
+            'price' => (float) $item['price'],
+            'quantity' => 0,
+          ];
         }
-
-    } elseif ($action === 'update') {
-        if (!empty($_POST['quantities']) && is_array($_POST['quantities'])) {
-            foreach ($_POST['quantities'] as $id => $qty) {
-                $id  = (int)$id;
-                $qty = (int)$qty;
-                if ($qty <= 0) {
-                    unset($_SESSION['cart'][$id]);
-                } else {
-                    if (isset($_SESSION['cart'][$id])) {
-                        $_SESSION['cart'][$id]['quantity'] = $qty;
-                    }
-                }
-            }
-        }
-
-    } elseif ($action === 'clear') {
-        $_SESSION['cart'] = [];
+        $_SESSION['cart'][$id]['quantity'] += $quantity;
+      }
     }
+
+  } elseif ($action === 'update') {
+    if (!empty($_POST['quantities']) && is_array($_POST['quantities'])) {
+      foreach ($_POST['quantities'] as $id => $qty) {
+        $id = (int) $id;
+        $qty = (int) $qty;
+        if ($qty <= 0) {
+          unset($_SESSION['cart'][$id]);
+        } else {
+          if (isset($_SESSION['cart'][$id])) {
+            $_SESSION['cart'][$id]['quantity'] = $qty;
+          }
+        }
+      }
+    }
+
+  } elseif ($action === 'clear') {
+    $_SESSION['cart'] = [];
+  }
 }
 
 if (isset($_GET['remove'])) {
-    $removeId = (int)$_GET['remove'];
-    unset($_SESSION['cart'][$removeId]);
+  $removeId = (int) $_GET['remove'];
+  unset($_SESSION['cart'][$removeId]);
 }
 
 $total = 0;
 foreach ($_SESSION['cart'] as $id => $item) {
-    $total += $item['price'] * $item['quantity'];
+  $total += $item['price'] * $item['quantity'];
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Your Cart | Tokyo Bloom</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/scripts.js"></script>
 </head>
+
 <body id="top">
   <header id="site-header">
     <a href="index.html"><img src="../images/tokyo_bloom_logo.png" alt="Tokyo Bloom Logo" id="site-logo"></a>
@@ -88,10 +91,12 @@ foreach ($_SESSION['cart'] as $id => $item) {
     </section>
 
     <section id="cart-section">
-      <?php if (empty($_SESSION['cart'])): ?>
-        <p>Your cart is currently empty.</p>
-        <p><a href="order.php">Browse the menu and add some items.</a></p>
-      <?php else: ?>
+      <div id="checkout-section">
+        <?php if (empty($_SESSION['cart'])): ?>
+          <p>Your cart is currently empty.</p>
+          <p><a href="order.php" class="button-link">Browse the menu and add some items.</a></p>
+        <?php else: ?>
+        </div>
         <form action="cart.php" method="post">
           <input type="hidden" name="action" value="update">
 
@@ -106,9 +111,9 @@ foreach ($_SESSION['cart'] as $id => $item) {
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($_SESSION['cart'] as $id => $item): 
+              <?php foreach ($_SESSION['cart'] as $id => $item):
                 $subtotal = $item['price'] * $item['quantity'];
-              ?>
+                ?>
                 <tr>
                   <td><?= htmlspecialchars($item['name']) ?></td>
                   <td>$<?= number_format($item['price'], 2) ?></td>
@@ -143,4 +148,5 @@ foreach ($_SESSION['cart'] as $id => $item) {
     <p>&copy; 2025 Tokyo Bloom Sushi and Grill. All rights reserved.</p>
   </footer>
 </body>
+
 </html>
