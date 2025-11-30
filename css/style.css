@@ -245,6 +245,79 @@ section {
   margin-bottom: 2em;
 }
 
+/* Visual status badge shown on the Hours page */
+.hours-status {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #fff;
+  background-color: #999; /* neutral while checking */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  min-width: 12ch;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.hours-status.open {
+  background-color: #2ecc71; /* green */
+  color: #073b17;
+}
+
+.hours-status.closed {
+  background-color: #e74c3c; /* red */
+  color: #3b0b05;
+}
+
+.hours-readable {
+  margin-top: 0.5rem;
+  color: #3A3A3A;
+  font-size: 1rem;
+}
+
+/* ------------------ Contact Page -------------------- */
+
+#contact-prompt {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 1.5em;
+  color: #3A3A3A;
+}
+
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#submit-button {
+  width: 140px;
+  padding: 12px 0;
+  background-color: #C91818;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  margin-top: 1em;
+  cursor: pointer;
+  transition: 0.3s ease;
+  align-self: center;
+}
+
+#submit-button:hover {
+  background-color: #A00E1A;
+  color: white;
+}
+
+#confirmation-message {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 3em;
+  margin-bottom: 15em;
+  color: #3A3A3A;
+}
+
 /* ---------------- Reservation Page & Forms ---------- */
 #reservation-section-page {
   background-color: #1E1E1E;

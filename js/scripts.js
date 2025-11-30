@@ -1,4 +1,58 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // --- Hours checker (reads schedule from #hours-json on the page) ---
+  (function () {
+    function parseTimeToDate(timeStr, refDate) {
+      const [hh, mm] = timeStr.split(':').map(Number);
+      const d = new Date(refDate);
+      d.setHours(hh, mm, 0, 0);
+      return d;
+    }
+
+    function readSchedule() {
+      const el = document.querySelector('#hours-json');
+      if (!el) return null;
+      try {
+        return JSON.parse(el.textContent);
+      } catch (e) {
+        console.warn('Failed to parse hours JSON', e);
+        return null;
+      }
+    }
+
+    function checkOpen(schedule) {
+      const statusEl = document.querySelector('#hours-status');
+      if (!statusEl) return;
+      if (!schedule) {
+        statusEl.textContent = 'Hours not available';
+        statusEl.classList.remove('open');
+        statusEl.classList.add('closed');
+        return;
+      }
+      const now = new Date();
+      const day = now.getDay();
+      const intervals = schedule[String(day)] || [];
+      let isOpen = false;
+      for (const iv of intervals) {
+        if (!iv || !iv.open || !iv.close) continue;
+        const openDate = parseTimeToDate(iv.open, now);
+        let closeDate = parseTimeToDate(iv.close, now);
+        if (closeDate <= openDate) closeDate.setDate(closeDate.getDate() + 1);
+        if (now >= openDate && now < closeDate) {
+          isOpen = true;
+          break;
+        }
+      }
+      statusEl.textContent = isOpen ? 'Open Now' : 'Closed Now';
+      statusEl.classList.toggle('open', isOpen);
+      statusEl.classList.toggle('closed', !isOpen);
+    }
+
+    const schedule = readSchedule();
+    // Initialize and refresh every minute
+    checkOpen(schedule);
+    setInterval(() => checkOpen(schedule), 60000);
+  })();
+
   const images = [
     '../images/sushi_background.jpg',
     '../images/sushi-plate.jpg',
