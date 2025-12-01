@@ -546,7 +546,7 @@ VALUES ('California Roll', 'Fresh avocado and crab', 12.99, 'Sushi', 'images/men
 
 ---
 
-**Last Updated:** December 1, 2025
-**Version:** 2.0.0
-**Status:** Production Ready
-**Architecture:** MVC with PSR-4 Autoloading
+**Last Updated:** December 1, 2025    
+**Version:** 2.0.0    
+**Status:** Production Ready    
+**Architecture:** MVC with PSR-4 Autoloading    
