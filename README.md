@@ -7,15 +7,15 @@
 ![PHP](https://img.shields.io/badge/PHP-8.x-777BB4)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-## 📋 Project Overview
+## Project Overview
 
 Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a complete online ordering system, reservation management, and contact features. The site showcases authentic Japanese cuisine with an elegant, user-friendly design optimized for both desktop and mobile experiences.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 🏠 **Home Page**
+### **Home Page**
 
 - Dynamic hero section with sliding background images
 - Comprehensive "About Us" with restaurant history (est. 2018)
@@ -27,7 +27,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a compl
 - Visual section dividers with gradient effects
 - Category quick-jump navigation
 
-### 📖 **Menu Page** (Browse-Only)
+### **Menu Page** (Browse-Only)
 
 - **Grid card layout** for easy scanning of all menu items
 - Organized by categories (Appetizers, Sushi, Main Courses, Desserts, Drinks)
@@ -37,7 +37,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a compl
 - Hover effects and animations
 - Call-to-action to order online
 
-### 🛒 **Order Online Page** (E-Commerce)
+### **Order Online Page** (E-Commerce)
 
 - Full shopping cart functionality
 - Add items with quantity selection
@@ -48,7 +48,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a compl
 - Session-based cart persistence
 - Detailed product cards with images
 
-### 🛍️ **Shopping Cart**
+### **Shopping Cart**
 
 - Comprehensive order summary
 - Update quantities for all items
@@ -59,7 +59,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a compl
 - Real-time total calculations
 - Mobile-optimized table view
 
-### 💳 **Checkout Process**
+### **Checkout Process**
 
 - Professional order review interface
 - Customer information form (name, email, phone)
@@ -69,7 +69,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a compl
 - Visual confirmation page
 - Order history (session-based)
 
-### 📅 **Reservations System**
+### **Reservations System**
 
 - Interactive booking form
 - Date and time selection
@@ -80,7 +80,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a compl
 - Beautiful confirmation pages
 - Database-backed reservation storage
 
-### 📞 **Contact Page**
+### **Contact Page**
 
 - Styled contact form with dark theme
 - Grid layout for clean information display
@@ -91,7 +91,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a compl
 
 ---
 
-## 🎨 Design System
+## Design System
 
 ### **Color Palette**
 
@@ -125,7 +125,7 @@ Supporting Colors:
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
 ### **menu_items**
 
@@ -154,28 +154,8 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ---
 
-## 📱 Mobile Responsive Features
 
-### **Optimizations**
-
-- ✅ Fluid typography with `clamp()` functions
-- ✅ Responsive grid layouts (3-4 columns → 1 column)
-- ✅ Hamburger-friendly navigation
-- ✅ Touch-optimized buttons (44px min height)
-- ✅ Stacked forms on mobile
-- ✅ Adaptive images and maps
-- ✅ Mobile-friendly tables with data labels
-- ✅ Prevent iOS zoom with 16px input fonts
-
-### **Breakpoints**
-
-```css
-@media (max-width: 900px) → Header/Nav adjustments @media (max-width: 768px) → Main layout changes @media (max-width: 640px) → Vertical navigation @media (max-width: 580px) → Action buttons stack @media (max-width: 480px) → Fine-tuning;
-```
-
----
-
-## 🛠️ Technical Stack
+## Technical Stack
 
 ### **Frontend**
 
@@ -201,7 +181,7 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 tokyo-bloom/
@@ -237,7 +217,7 @@ tokyo-bloom/
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### **Prerequisites**
 
@@ -286,7 +266,7 @@ tokyo-bloom/
 
 ---
 
-## 🎯 User Workflows
+## User Workflows
 
 ### **Browse & Order**
 
@@ -316,7 +296,7 @@ tokyo-bloom/
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ### **Hours Settings**
 
@@ -341,7 +321,7 @@ Managed via MySQL database or phpMyAdmin interface
 
 ---
 
-## 🌟 Notable Features
+## Notable Features
 
 - **Dynamic Hours Display:** Real-time open/closed status
 - **Session Management:** Cart persists across pages
@@ -369,13 +349,13 @@ Managed via MySQL database or phpMyAdmin interface
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Design inspiration from modern restaurant websites
 - Font families: Lulo Clean, Sohne Buch
