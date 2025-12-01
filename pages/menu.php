@@ -35,34 +35,59 @@ $currentCategory = '';
     <section class="page-banner dynamic-hero">
       <h1>Menu</h1>
     </section>
+
     <section id="menu-section">
       <h2>Our Menu</h2>
       <p>Explore our selection of authentic Japanese cuisine, crafted with the finest ingredients.</p>
 
-      <?php foreach ($items as $item): ?>
+      <?php
+      // Get unique categories for navigation
+      $categories = [];
+      foreach ($items as $item) {
+        if (!in_array($item['category'], $categories)) {
+          $categories[] = $item['category'];
+        }
+      }
+      ?>
 
+      <!-- Category Navigation -->
+      <div class="menu-category-nav">
+        <?php foreach ($categories as $cat): ?>
+          <a href="#<?= strtolower(str_replace(' ', '-', $cat)) ?>"
+            class="category-nav-link"><?= htmlspecialchars($cat) ?></a>
+        <?php endforeach; ?>
+      </div>
+
+      <?php foreach ($items as $item): ?>
         <?php if ($item['category'] !== $currentCategory): ?>
           <?php
           $currentCategory = $item['category'];
-          echo "<h2 class='menu-category'>{$currentCategory}</h2>";
+          $categoryId = strtolower(str_replace(' ', '-', $currentCategory));
+          // Close previous grid if exists
+          if ($currentCategory !== $items[0]['category']) {
+            echo '</div>';
+          }
+          echo "<h2 class='menu-category' id='{$categoryId}'>{$currentCategory}</h2>";
+          echo '<div class="menu-grid">';
           ?>
         <?php endif; ?>
 
-        <div class="menu-item">
+        <div class="menu-card">
           <?php if (!empty($item['image_url'])): ?>
-            <img src="../<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['name']) ?>">
+            <div class="menu-card-image">
+              <img src="../<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['name']) ?>">
+            </div>
           <?php endif; ?>
 
-          <div class="menu-item-info">
-            <h3>
-              <?= htmlspecialchars($item['name']) ?>
-              <span class="menu-price">$<?= number_format($item['price'], 2) ?></span>
-            </h3>
-            <p><?= htmlspecialchars($item['description']) ?></p>
+          <div class="menu-card-content">
+            <h3 class="menu-card-title"><?= htmlspecialchars($item['name']) ?></h3>
+            <p class="menu-card-description"><?= htmlspecialchars($item['description']) ?></p>
+            <div class="menu-card-price">$<?= number_format($item['price'], 2) ?></div>
           </div>
         </div>
 
       <?php endforeach; ?>
+      </div> <!-- Close last grid -->
 
       <div class="cart-actions"
         style="text-align: center; margin-top: 2.5rem; padding-top: 2rem; border-top: 2px solid #E0E0E0;">
