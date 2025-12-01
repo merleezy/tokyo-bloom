@@ -28,19 +28,26 @@
       <h1>Contact Us</h1>
     </section>
 
-    <p id="contact-prompt">If you have any questions or need assistance,<br> feel free to reach out to us!</p>
+    <section id="reservation-section-page">
+      <h2>Contact Us</h2>
+      <p>If you have any questions or need assistance, feel free to reach out to us!</p>
 
-    <section id="contact-section">
       <form id="contact-form" action="contactsystem.php" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" required></textarea>
-        <br>
+        <div id="info-container">
+          <div id="personal-info">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div id="reservation-info">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+        </div>
+
         <button type="submit" id="submit-button">Send message</button>
       </form>
     </section>
