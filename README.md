@@ -546,12 +546,6 @@ VALUES ('California Roll', 'Fresh avocado and crab', 12.99, 'Sushi', 'images/men
 
 ---
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
 **Last Updated:** December 1, 2025
 **Version:** 2.0.0
 **Status:** Production Ready
