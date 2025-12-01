@@ -1,18 +1,39 @@
 # Tokyo Bloom Sushi and Grill
 
-**Modern Japanese Restaurant Website**
+**Modern Japanese Restaurant Website with MVC Architecture**
 
-![Status](https://img.shields.io/badge/Status-Complete-success)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 ![Mobile](https://img.shields.io/badge/Mobile-Responsive-blue)
-![PHP](https://img.shields.io/badge/PHP-8.x-777BB4)
+![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4)
+![Architecture](https://img.shields.io/badge/Architecture-MVC-orange)
 
 ## Project Overview
 
-Tokyo Bloom is a fully-featured, modern Japanese restaurant website with a complete online ordering system, reservation management, and contact features. The site showcases authentic Japanese cuisine with an elegant, user-friendly design optimized for both desktop and mobile experiences.
+Tokyo Bloom is a fully-featured, modern Japanese restaurant website built with clean MVC architecture. Features include online ordering with session-based cart, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system. The site showcases authentic Japanese cuisine with an elegant, responsive design optimized for both desktop and mobile experiences.
 
 ---
 
 ## Key Features
+
+### **MVC Architecture**
+
+- **Front Controller Pattern** - Single entry point (`public/index.php`)
+- **Router** - Clean URL routing with RESTful conventions
+- **Controllers** - Business logic separation (Home, Menu, Order, Cart, Checkout, Reservations, Contact)
+- **Repositories** - Data access layer with PDO
+- **Templates** - Reusable views with layout system
+- **Services** - Validation, logging, and utilities
+- **Composer Autoloading** - PSR-4 namespacing (`App\` namespace)
+
+### **Security Features**
+
+- CSRF protection on all forms
+- Prepared statements (SQL injection prevention)
+- Input validation and sanitization
+- Environment variables (`.env`) for sensitive data
+- Secure session management
+- XSS protection headers
+- File access restrictions via `.htaccess`
 
 ### **Home Page**
 
@@ -126,6 +147,29 @@ Supporting Colors:
 
 ## Database Schema
 
+### **orders**
+
+```sql
+id                INT PRIMARY KEY AUTO_INCREMENT
+customer_name     VARCHAR(255) NOT NULL
+customer_email    VARCHAR(255) NOT NULL
+customer_phone    VARCHAR(50) NOT NULL
+customer_address  TEXT NOT NULL
+created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+```
+
+### **order_items**
+
+```sql
+id            INT PRIMARY KEY AUTO_INCREMENT
+order_id      INT NOT NULL
+item_id       INT NOT NULL
+name          VARCHAR(255) NOT NULL
+price         DECIMAL(10,2) NOT NULL
+quantity      INT NOT NULL
+FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+```
+
 ### **menu_items**
 
 ```sql
@@ -153,7 +197,6 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ---
 
-
 ## Technical Stack
 
 ### **Frontend**
@@ -167,10 +210,13 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ### **Backend**
 
 - PHP 8.x
-- MySQL/MariaDB
+- MySQL/MariaDB 10.4+
 - PDO for database queries
 - Session management
-- PHPMailer for email notifications
+- PHPMailer 6.x (via Composer)
+- Composer dependency management
+- Monolog logging
+- Dotenv for configuration
 
 ### **Server**
 
@@ -184,32 +230,65 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ```
 tokyo-bloom/
-├── pages/
-│   ├── index.html                    # Home page
-│   ├── menu.php                      # Browse menu (grid view)
-│   ├── order.php                     # Order online (with cart)
-│   ├── cart.php                      # Shopping cart
-│   ├── checkout.php                  # Checkout process
-│   ├── reservations.php              # Reservation form
-│   ├── reservationsconfirmation.php  # Booking confirmation
-│   ├── reservationscancel.php        # Cancel reservation
-│   ├── contact.html                  # Contact form
-│   ├── contactconfirmation.html      # Message sent confirmation
-│   ├── contactsystem.php             # Contact form handler
-│   └── reservationssystem.php        # Reservation handler
-├── css/
-│   └── style.css                     # Main stylesheet (1000+ lines)
-├── js/
-│   └── scripts.js                    # Interactive features
-├── images/
-│   ├── menu/                         # Food photography
-│   └── [hero images]                 # Background images
-├── fonts/
-│   ├── LuloCleanW01-OneBold.otf
-│   └── Sohne-Buch.otf
-├── PHPMailer/                        # Email library
-├── dbconnect.php                     # Database connection
-├── api.php                           # API endpoints
+├── public/                           # Web root (point Apache here)
+│   ├── index.php                     # Front controller
+│   ├── .htaccess                     # URL rewriting & security
+│   ├── css/
+│   │   └── style.css                 # Main stylesheet
+│   ├── js/
+│   │   └── scripts.js                # Interactive features
+│   ├── images/                       # Static assets
+│   └── fonts/                        # Custom fonts
+├── src/                              # Application code
+│   ├── Bootstrap.php                 # Application initialization
+│   ├── Router.php                    # URL routing
+│   ├── helpers.php                   # Global helper functions
+│   ├── Controllers/                  # Request handlers
+│   │   ├── Controller.php            # Base controller
+│   │   ├── HomeController.php
+│   │   ├── MenuController.php
+│   │   ├── OrderController.php
+│   │   ├── CartController.php
+│   │   ├── CheckoutController.php
+│   │   ├── ReservationsController.php
+│   │   └── ContactController.php
+│   ├── Repositories/                 # Data access layer
+│   │   ├── MenuRepository.php
+│   │   ├── OrderRepository.php
+│   │   └── ReservationRepository.php
+│   ├── Services/                     # Business logic
+│   │   ├── Validator.php             # Input validation
+│   │   └── Logger.php                # Monolog wrapper
+│   └── Database/
+│       └── Connection.php            # PDO connection
+├── templates/                        # View files
+│   ├── layout.php                    # Master layout
+│   ├── home.php
+│   ├── menu.php
+│   ├── order.php
+│   ├── cart.php
+│   ├── checkout.php
+│   ├── checkout_success.php
+│   ├── reservations_form.php
+│   ├── reservations_success.php
+│   ├── reservations_canceled.php
+│   ├── contact_form.php
+│   └── contact_success.php
+├── routes/
+│   └── web.php                       # Route definitions
+├── database/
+│   ├── migrate.php                   # Migration runner
+│   └── migrations/
+│       ├── 000_create_menu_items.sql
+│       ├── 001_create_orders_tables.sql
+│       └── 002_create_reservations.sql
+├── logs/                             # Application logs
+│   ├── app.log                       # General logs
+│   └── error.log                     # Error logs
+├── vendor/                           # Composer dependencies
+├── .env                              # Environment configuration
+├── .env.example                      # Environment template
+├── composer.json                     # PHP dependencies
 ├── tokyo_bloom.sql                   # Database dump
 └── README.md                         # This file
 ```
@@ -220,18 +299,20 @@ tokyo-bloom/
 
 ### **Prerequisites**
 
-- XAMPP (or similar PHP/MySQL environment)
+- **XAMPP** (or similar PHP/MySQL environment)
 - PHP 8.0 or higher
 - MySQL/MariaDB
+- Composer (PHP dependency manager)
 - Modern web browser
 
 ### **Installation**
 
-1. **Clone or download the project**
+1. **Clone the repository**
 
    ```bash
    cd C:\xampp\htdocs\
    git clone https://github.com/merleezy/tokyo-bloom.git
+   cd tokyo-bloom
    ```
 
 2. **Import the database**
@@ -240,18 +321,38 @@ tokyo-bloom/
    - Create database: `tokyo_bloom`
    - Import `tokyo_bloom.sql`
 
-3. **Configure database connection**
-   Edit `dbconnect.php`:
+   **OR** run migrations:
 
-   ```php
-   $host = 'localhost';
-   $dbname = 'tokyo_bloom';
-   $username = 'root';
-   $password = '';
+   ```bash
+   C:\xampp\php\php.exe database\migrate.php
    ```
 
-4. **Configure PHPMailer** (optional)
-   Edit `contactsystem.php` with your SMTP credentials
+3. **Install PHP dependencies**
+
+   ```bash
+   composer install
+   ```
+
+4. **Configure environment variables**
+
+   Copy `.env.example` to `.env`:
+
+   ```bash
+   copy .env.example .env
+   ```
+
+   Edit `.env` with your settings:
+
+   ```env
+   APP_URL=http://localhost/tokyo-bloom/public
+   DB_HOST=localhost
+   DB_NAME=tokyo_bloom
+   DB_USER=root
+   DB_PASS=
+   MAIL_HOST=localhost
+   MAIL_PORT=1025
+   MAIL_FROM_ADDRESS=info@tokyobloom.com
+   ```
 
 5. **Start XAMPP services**
 
@@ -260,8 +361,94 @@ tokyo-bloom/
 
 6. **Access the website**
    ```
-   http://localhost/tokyo-bloom/pages/index.html
+   http://localhost/tokyo-bloom/public
    ```
+
+### **Important Commands**
+
+```bash
+# Install dependencies
+composer install
+
+# Run database migrations
+C:\xampp\php\php.exe database\migrate.php
+
+# Update dependencies
+composer update
+
+# Dump autoload files
+composer dump-autoload
+```
+
+### **Configuration Notes**
+
+- **Document Root**: Point Apache to `public/` directory for production
+- **URL Rewriting**: Requires `mod_rewrite` enabled in Apache
+- **PHP Extensions**: Ensure `pdo_mysql`, `mbstring`, `openssl` are enabled
+- **Permissions**: Logs directory needs write permissions (755)
+- **Email**: Configure SMTP settings in `.env` for contact form
+- **Sessions**: PHP session.save_path must be writable
+
+---
+
+## Development
+
+### **Adding New Routes**
+
+Edit `routes/web.php`:
+
+```php
+$router->get('/your-route', [YourController::class, 'method']);
+$router->post('/your-route', [YourController::class, 'store']);
+```
+
+### **Validation Example**
+
+```php
+use App\Services\Validator;
+
+$validator = new Validator();
+if ($validator->validate($_POST, [
+   'name' => 'required|min:2',
+   'email' => 'required|email',
+   'guests' => 'required|integer|min:1|max:20',
+])) {
+   // Process valid data
+   $errors = $validator->errors();
+}
+```
+
+### **Logging Example**
+
+```php
+use App\Services\Logger;
+
+Logger::info('Order placed', ['order_id' => $orderId]);
+Logger::error('Payment failed', ['error' => $e->getMessage()]);
+```
+
+---
+
+## API Endpoints
+
+All endpoints are accessed via clean URLs:
+
+- `GET /` - Home page
+- `GET /menu` - Menu listing
+- `GET /order` - Order page
+- `POST /order/add` - Add item to cart
+- `GET /cart` - View cart
+- `POST /cart/update` - Update cart quantities
+- `POST /cart/remove` - Remove cart item
+- `POST /cart/clear` - Clear cart
+- `GET /checkout` - Checkout form
+- `POST /checkout` - Place order
+- `GET /reservations` - Reservation form
+- `POST /reservations` - Create reservation
+- `GET /reservations/confirm` - Confirmation page
+- `POST /reservations/cancel` - Cancel reservation
+- `GET /contact` - Contact form
+- `POST /contact` - Send message
 
 ---
 
@@ -310,15 +497,62 @@ const hours = {
 
 ### **Menu Items**
 
-Managed via MySQL database or phpMyAdmin interface
+Add items via phpMyAdmin or create a seeder:
+
+```sql
+INSERT INTO menu_items (name, description, price, category, image_url)
+VALUES ('California Roll', 'Fresh avocado and crab', 12.99, 'Sushi', 'images/menu/california-roll.jpg');
+```
 
 ### **Images**
 
 - Hero images: `images/`
 - Menu items: `images/menu/`
+- Store assets in `public/` directory
 
 ---
 
-**Last Updated:** December 1, 2025  
-**Version:** 1.0.0  
-**Status:** Demo Version
+## Troubleshooting
+
+### **CSS/JS Not Loading**
+
+- Check `APP_URL` in `.env` matches your local path
+- Verify files exist in `public/css/` and `public/js/`
+- Clear browser cache
+
+### **Database Connection Failed**
+
+- Verify MySQL service is running
+- Check credentials in `.env`
+- Ensure database exists
+
+### **404 on Routes**
+
+- Enable `mod_rewrite` in Apache
+- Check `.htaccess` exists in `public/`
+- Verify document root points to `public/`
+
+### **CSRF Token Mismatch**
+
+- Ensure sessions are working (check `session.save_path`)
+- Clear browser cookies
+- Check `csrf_field()` is in all forms
+
+### **Email Not Sending**
+
+- Configure SMTP settings in `.env`
+- Check PHP `mail()` configuration
+- Test with local mail server (MailHog, Mailpit)
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+**Last Updated:** December 1, 2025
+**Version:** 2.0.0
+**Status:** Production Ready
+**Architecture:** MVC with PSR-4 Autoloading
