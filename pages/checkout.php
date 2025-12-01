@@ -22,9 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout | Tokyo Bloom</title>
   <link rel="stylesheet" href="../css/style.css">
   <script src="../js/scripts.js"></script>
+  <link rel="icon" href="../images/tokyo_bloom_icon.png" type="image/png">
 </head>
 
 <body id="top">
@@ -53,9 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <p style="font-size: 1.1rem; margin: 1.5rem 0;">Thank you for your order! We'll begin preparing your delicious
             meal right away.</p>
           <p>You will receive a confirmation shortly.</p>
-          <div style="margin-top: 2rem;">
-            <a href="order.php" class="button-link" style="background-color: #C91818;">Order Again</a>
-            <a href="index.html" class="button-link" style="background-color: #666; margin-left: 1rem;">Back to Home</a>
+          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            <a href="order.php" class="button-link"
+              style="background-color: #C91818; flex: 1 1 200px; text-align: center;">Order Again</a>
+            <a href="index.html" class="button-link"
+              style="background-color: #666; flex: 1 1 200px; text-align: center;">Back to Home</a>
           </div>
         </div>
       <?php else: ?>
@@ -112,7 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
               </div>
 
-              <button type="submit" class="button-link">Place Order ($<?= number_format($total, 2) ?>)</button>
+              <button type="submit"
+                style="width: 100%; max-width: 100%; padding: 12px 0; background-color: #C91818; color: #FFFFFF; border: none; border-radius: 6px; margin-top: 1em; cursor: pointer; transition: 0.3s ease; font-size: 1rem; font-weight: 600;">Place
+                Order ($<?= number_format($total, 2) ?>)</button>
             </form>
 
             <div style="margin-top: 1.5rem;">
