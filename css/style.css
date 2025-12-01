@@ -245,6 +245,16 @@ section {
   margin-bottom: 2em;
 }
 
+/* ------------------ Contact & Confirmation Pages -------------------- */
+
+#confirmation-message {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 3em;
+  margin-bottom: 15em;
+  color: #3A3A3A;
+}
+
 /* Visual status badge shown on the Hours page */
 .hours-status {
   display: inline-block;
@@ -366,6 +376,12 @@ section {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  font-family: 'Sohne Buch', sans-serif;
+}
+
+#reservation-section-page textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 /* Small caret spacing fix for selects */
@@ -400,6 +416,26 @@ section {
   grid-template-columns: 1fr;
   gap: 0.75em;
   text-align: left;
+}
+
+#reservation-section-page button[type="submit"] {
+  width: 200px;
+  padding: 12px 0;
+  background-color: #C91818;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  margin-top: 1em;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 1rem;
+  font-weight: 600;
+  align-self: center;
+}
+
+#reservation-section-page button[type="submit"]:hover {
+  background-color: #A00E1A;
+  transform: translateY(-1px);
 }
 
 /* --------------------- Footer ------------------------ */
