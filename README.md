@@ -320,43 +320,6 @@ Managed via MySQL database or phpMyAdmin interface
 
 ---
 
-## Notable Features
-
-- **Dynamic Hours Display:** Real-time open/closed status
-- **Session Management:** Cart persists across pages
-- **Responsive Tables:** Mobile-friendly data display
-- **Smooth Animations:** Hero image transitions, hover effects
-- **Form Validation:** Client and server-side validation
-- **Error Handling:** Graceful degradation and user feedback
-- **SEO Optimized:** Semantic HTML, meta tags
-- **Accessibility:** ARIA labels, keyboard navigation
-- **Performance:** Optimized images, minimal dependencies
-
----
-
-## Future Enhancements
-
-- [ ] User accounts and order history
-- [ ] Payment gateway integration (Stripe/PayPal)
-- [ ] Email notifications for orders and reservations
-- [ ] Admin dashboard for managing menu and orders
-- [ ] Online reviews and ratings
-- [ ] Loyalty program integration
-- [ ] Multi-language support
-- [ ] Dark mode toggle
-- [ ] Progressive Web App (PWA) capabilities
-
----
-
-## Acknowledgments
-
-- Design inspiration from modern restaurant websites
-- Font families: Lulo Clean, Sohne Buch
-- PHPMailer for email functionality
-- Stock food photography for demo purposes
-
----
-
 **Last Updated:** December 1, 2025  
 **Version:** 1.0.0  
 **Status:** Production Ready ✨
