@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use App\Repositories\MenuRepository;
+use App\Services\Logger;
 
 class OrderController extends Controller
 {
@@ -34,6 +35,7 @@ class OrderController extends Controller
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
       http_response_code(400);
       $_SESSION['error'] = 'invalid_csrf';
+      Logger::warning('Order: CSRF verification failed');
       header('Location: ' . base_url('/order'));
       exit;
     }
@@ -47,6 +49,7 @@ class OrderController extends Controller
 
     if ($itemId <= 0) {
       $_SESSION['error'] = 'invalid_item';
+      Logger::warning('Order: invalid item id', ['item_id' => $itemId]);
       header('Location: ' . base_url('/order'));
       exit;
     }
@@ -57,6 +60,7 @@ class OrderController extends Controller
       : 0;
 
     $_SESSION['cart'][$itemId] = $currentQty + $qty;
+    Logger::info('Order: item added to cart', ['item_id' => $itemId, 'quantity' => $qty, 'new_total' => $_SESSION['cart'][$itemId]]);
 
     header('Location: ' . base_url('/cart'));
     exit;

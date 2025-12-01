@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Repositories\ReservationRepository;
+use App\Services\Logger;
 
 class ReservationsController extends Controller
 {
@@ -26,11 +27,13 @@ class ReservationsController extends Controller
   public function store(): void
   {
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+      Logger::warning('Reservations: invalid request method', ['method' => $_SERVER['REQUEST_METHOD'] ?? 'unknown']);
       header('Location: ' . base_url('/reservations'));
       return;
     }
 
     if (!csrf_verify($_POST['csrf_token'] ?? null)) {
+      Logger::warning('Reservations: CSRF verification failed');
       header('Location: ' . base_url('/reservations?error=invalid'));
       return;
     }
@@ -43,6 +46,7 @@ class ReservationsController extends Controller
     $guests = (int) ($_POST['guests'] ?? 0);
 
     if ($name === '' || $email === '' || $phone === '' || $date === '' || $time === '' || $guests < 1) {
+      Logger::warning('Reservations: invalid input', compact('name', 'email', 'phone', 'date', 'time', 'guests'));
       header('Location: ' . base_url('/reservations?error=invalid'));
       return;
     }
@@ -59,14 +63,17 @@ class ReservationsController extends Controller
       ]);
     } catch (\PDOException $e) {
       if ($e->getCode() === '23000') {
+        Logger::warning('Reservations: time slot already taken', compact('date', 'time'));
         header('Location: ' . base_url('/reservations?error=slot_taken'));
         return;
       }
+      Logger::error('Reservations: database error', ['error' => $e->getMessage(), 'code' => $e->getCode()]);
       http_response_code(500);
       echo 'Reservation failed.';
       return;
     }
 
+    Logger::info('Reservations: created', ['id' => $id, 'date' => $date, 'time' => $time, 'guests' => $guests]);
     header('Location: ' . base_url('/reservations/confirm?id=' . urlencode((string) $id)));
   }
 
@@ -94,6 +101,7 @@ class ReservationsController extends Controller
   public function cancel(): void
   {
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+      Logger::warning('Reservations: cancel invalid method', ['method' => $_SERVER['REQUEST_METHOD'] ?? 'unknown']);
       header('Location: ' . base_url('/reservations'));
       return;
     }
@@ -101,6 +109,7 @@ class ReservationsController extends Controller
     if (!csrf_verify($_POST['csrf_token'] ?? null)) {
       http_response_code(403);
       echo 'Invalid CSRF token.';
+      Logger::warning('Reservations: cancel CSRF failed');
       return;
     }
 
@@ -108,6 +117,7 @@ class ReservationsController extends Controller
     if ($id <= 0) {
       http_response_code(400);
       echo 'Reservation ID is missing.';
+      Logger::warning('Reservations: cancel missing id');
       return;
     }
 
@@ -116,6 +126,7 @@ class ReservationsController extends Controller
     if (!$reservation) {
       http_response_code(404);
       echo 'Reservation not found.';
+      Logger::warning('Reservations: cancel not found', ['id' => $id]);
       return;
     }
 
@@ -126,9 +137,11 @@ class ReservationsController extends Controller
     } catch (\PDOException $e) {
       http_response_code(500);
       echo 'Failed to cancel reservation.';
+      Logger::error('Reservations: cancel DB error', ['error' => $e->getMessage(), 'id' => $id]);
       return;
     }
 
+    Logger::info('Reservations: canceled', ['id' => $id]);
     $this->render('reservations_canceled', [
       'title' => 'Reservation Canceled',
     ]);

@@ -54,15 +54,14 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(() => checkOpen(schedule), 60000);
   })();
 
-  // Get base path from current script location or window location
-  const basePath = window.location.pathname.includes('/public') 
-    ? window.location.pathname.split('/public')[0] 
-    : '';
-  
+  // Use ASSET_BASE injected by layout.php for reliable asset URLs
+  const ASSET_BASE = (window.ASSET_BASE || '/');
+
+  // Hero images (ensure filenames match those in public/images)
   const images = [
-    basePath + '/images/sushi_background.jpg',
-    basePath + '/images/sushi-plate.jpg',
-    basePath + '/images/kitchen-interior.jpg'
+    ASSET_BASE + 'images/sushi_background.avif',
+    ASSET_BASE + 'images/sushi-plate.avif',
+    ASSET_BASE + 'images/kitchen-interior.avif'
   ];
 
   let currentIndex = 0;

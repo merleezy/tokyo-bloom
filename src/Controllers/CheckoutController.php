@@ -7,6 +7,7 @@ use App\Controllers\Controller;
 use App\Database\Connection;
 use App\Repositories\MenuRepository;
 use App\Repositories\OrderRepository;
+use App\Services\Logger;
 
 class CheckoutController extends Controller
 {
@@ -66,11 +67,13 @@ class CheckoutController extends Controller
   {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
       http_response_code(400);
+      Logger::warning('Checkout: CSRF verification failed');
       $this->render('checkout', ['title' => 'Checkout', 'cart' => $_SESSION['cart'] ?? [], 'error' => 'invalid_csrf']);
       return;
     }
     $cart = $_SESSION['cart'] ?? [];
     if (!$cart) {
+      Logger::warning('Checkout: empty cart on place order');
       $this->render('checkout', ['title' => 'Checkout', 'cart' => [], 'error' => 'empty_cart']);
       return;
     }
@@ -79,6 +82,7 @@ class CheckoutController extends Controller
     $phone = trim($_POST['phone'] ?? '');
     $address = trim($_POST['address'] ?? '');
     if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $address === '') {
+      Logger::warning('Checkout: invalid input', compact('name', 'email', 'phone'));
       $this->render('checkout', ['title' => 'Checkout', 'cart' => $cart, 'error' => 'invalid_input']);
       return;
     }
@@ -111,6 +115,7 @@ class CheckoutController extends Controller
     $repoOrder = new OrderRepository();
     $orderId = $repoOrder->create(['name' => $name, 'email' => $email, 'phone' => $phone, 'address' => $address]);
     $repoOrder->addItems($orderId, $orderItems);
+    Logger::info('Checkout: order created', ['order_id' => $orderId, 'items' => count($orderItems)]);
 
     unset($_SESSION['cart']);
     $this->render('checkout_success', ['title' => 'Order Placed', 'orderId' => $orderId]);

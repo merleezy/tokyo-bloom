@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Controllers\Controller;
+use App\Services\Logger;
 
 class CartController extends Controller
 {
@@ -23,6 +24,7 @@ class CartController extends Controller
   {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
       http_response_code(400);
+      Logger::warning('Cart: CSRF verification failed on update');
       $this->render('cart', ['title' => 'Your Cart', 'error' => 'invalid_csrf', 'cart' => $_SESSION['cart'] ?? []]);
       return;
     }
@@ -33,8 +35,10 @@ class CartController extends Controller
       $qty = max(0, (int) $qty);
       if ($qty === 0) {
         unset($_SESSION['cart'][$itemId]);
+        Logger::info('Cart: item removed via update', ['item_id' => $itemId]);
       } else {
         $_SESSION['cart'][$itemId] = $qty;
+        Logger::info('Cart: quantity updated', ['item_id' => $itemId, 'quantity' => $qty]);
       }
     }
     header('Location: ' . base_url('/cart'));
@@ -45,12 +49,14 @@ class CartController extends Controller
   {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
       http_response_code(400);
+      Logger::warning('Cart: CSRF verification failed on remove');
       $this->render('cart', ['title' => 'Your Cart', 'error' => 'invalid_csrf', 'cart' => $_SESSION['cart'] ?? []]);
       return;
     }
     $itemId = (int) ($_POST['item_id'] ?? 0);
     if (isset($_SESSION['cart'][$itemId])) {
       unset($_SESSION['cart'][$itemId]);
+      Logger::info('Cart: item removed', ['item_id' => $itemId]);
     }
     header('Location: ' . base_url('/cart'));
     exit;
@@ -60,10 +66,12 @@ class CartController extends Controller
   {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
       http_response_code(400);
+      Logger::warning('Cart: CSRF verification failed on clear');
       $this->render('cart', ['title' => 'Your Cart', 'error' => 'invalid_csrf', 'cart' => $_SESSION['cart'] ?? []]);
       return;
     }
     unset($_SESSION['cart']);
+    Logger::info('Cart: cleared');
     header('Location: ' . base_url('/cart'));
     exit;
   }

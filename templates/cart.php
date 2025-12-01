@@ -52,11 +52,13 @@
                 </td>
                 <td data-label="Subtotal">$<?php echo number_format((float)$row['subtotal'], 2); ?></td>
                 <td data-label="Action">
-                  <form action="<?php echo base_url('/cart/remove'); ?>" method="post" style="display:inline">
-                    <?php echo csrf_field(); ?>
-                    <input type="hidden" name="item_id" value="<?php echo (int)$row['id']; ?>">
-                    <button type="submit" style="background:none; border:none; color: #C91818; text-decoration: underline; cursor:pointer; padding:0; font-size:inherit;">Remove</button>
-                  </form>
+                  <button type="submit"
+                          formaction="<?php echo base_url('/cart/remove'); ?>"
+                          name="item_id"
+                          value="<?php echo (int)$row['id']; ?>"
+                          style="background:none; border:none; color: #C91818; text-decoration: underline; cursor:pointer; padding:0; font-size:inherit;">
+                    Remove
+                  </button>
                 </td>
               </tr>
             <?php endforeach; ?>

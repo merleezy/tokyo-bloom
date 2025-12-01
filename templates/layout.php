@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="<?php echo asset_url('css/style.css'); ?>">
   <link rel="icon" href="<?php echo asset_url('images/tokyo_bloom_icon.png'); ?>" type="image/png">
   <script src="<?php echo asset_url('js/scripts.js'); ?>" defer></script>
+  <script>
+    window.ASSET_BASE = "<?php echo rtrim(asset_url(''), '/'); ?>/";
+  </script>
 </head>
 <body id="top">
   <?php echo $content; ?>

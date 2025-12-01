@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\Services\Logger;
 
 class ContactController extends Controller
 {
@@ -20,11 +21,13 @@ class ContactController extends Controller
   public function send(): void
   {
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+      Logger::warning('Contact: invalid request method', ['method' => $_SERVER['REQUEST_METHOD'] ?? 'unknown']);
       header('Location: ' . base_url('/contact'));
       return;
     }
 
-    if (!csrf_verify($_POST['_token'] ?? null)) {
+    if (!csrf_verify($_POST['csrf_token'] ?? null)) {
+      Logger::warning('Contact: CSRF verification failed');
       header('Location: ' . base_url('/contact?error=invalid'));
       return;
     }
@@ -34,11 +37,13 @@ class ContactController extends Controller
     $message = trim((string) ($_POST['message'] ?? ''));
 
     if ($name === '' || $email === '' || $message === '') {
+      Logger::warning('Contact: invalid input', compact('name', 'email'));
       header('Location: ' . base_url('/contact?error=invalid'));
       return;
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      Logger::warning('Contact: invalid email format', ['email' => $email]);
       header('Location: ' . base_url('/contact?error=invalid'));
       return;
     }
@@ -69,9 +74,11 @@ class ContactController extends Controller
       $mail->send();
     } catch (Exception $e) {
       error_log('Contact form mail error: ' . $mail->ErrorInfo);
+      Logger::error('Contact: mail send failed', ['error' => $mail->ErrorInfo]);
       // Continue to confirmation even if mail fails in dev environment
     }
 
+    Logger::info('Contact: message accepted', ['from' => $email, 'name' => $name]);
     header('Location: ' . base_url('/contact/success'));
   }
 
