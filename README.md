@@ -335,7 +335,7 @@ Managed via MySQL database or phpMyAdmin interface
 
 ---
 
-## 📈 Future Enhancements
+## Future Enhancements
 
 - [ ] User accounts and order history
 - [ ] Payment gateway integration (Stripe/PayPal)
