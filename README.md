@@ -5,7 +5,6 @@
 ![Status](https://img.shields.io/badge/Status-Complete-success)
 ![Mobile](https://img.shields.io/badge/Mobile-Responsive-blue)
 ![PHP](https://img.shields.io/badge/PHP-8.x-777BB4)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Project Overview
 
@@ -346,12 +345,6 @@ Managed via MySQL database or phpMyAdmin interface
 - [ ] Multi-language support
 - [ ] Dark mode toggle
 - [ ] Progressive Web App (PWA) capabilities
-
----
-
-## License
-
-This project is licensed under the MIT License.
 
 ---
 
