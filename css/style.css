@@ -234,15 +234,147 @@ main h2 {
   text-align: center;
 }
 
+#about-us-section {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 3rem 2rem;
+}
+
+.about-intro {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1E1E1E;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.about-content {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  text-align: left;
+}
+
+.about-content p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  color: #3A3A3A;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.feature-card {
+  background-color: #FFFFFF;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.feature-card h3 {
+  font-family: 'Lulo Clean', sans-serif;
+  font-size: 1.1rem;
+  color: #C91818;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #3A3A3A;
+  margin: 0;
+}
+
 section {
   padding: 2em;
   margin-bottom: 2em;
+}
+
+/* ------------------ Section Dividers ---------------- */
+.section-divider {
+  max-width: 200px;
+  margin: 3rem auto;
+  border: none;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #F5B7C3, #C91818, #F5B7C3, transparent);
+  border-radius: 2px;
 }
 
 #hours-section {
   text-align: center;
   padding: 2em;
   margin-bottom: 2em;
+}
+
+/* ------------------ Location Section ---------------- */
+#location-section {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 3rem 2rem;
+  text-align: center;
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+#location-section h2 {
+  margin-bottom: 2rem;
+}
+
+.location-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.location-info {
+  padding: 1.5rem;
+  background-color: #F9E8D9;
+  border-radius: 12px;
+  border: 2px solid #F5B7C3;
+}
+
+.location-info h3 {
+  font-family: 'Lulo Clean', sans-serif;
+  font-size: 1.2rem;
+  color: #C91818;
+  margin-bottom: 1rem;
+}
+
+.location-info p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #3A3A3A;
+  margin: 0;
+}
+
+.map-container {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.map-container iframe {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.map-container iframe:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
 }
 
 /* ------------------ Contact & Confirmation Pages -------------------- */
@@ -440,14 +572,47 @@ section {
 
 /* --------------------- Footer ------------------------ */
 #site-footer {
-  text-align: center;
-  padding: 1em;
   background-color: #1E1E1E;
   color: white;
-  position: relative;
-  bottom: 0;
+  padding: 3rem 2rem 1.5rem;
+  margin-top: 4rem;
   width: 100%;
-  margin-top: 2em;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+  font-family: 'Lulo Clean', sans-serif;
+  font-size: 1.1rem;
+  color: #F5B7C3;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #CCCCCC;
+  margin: 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.footer-bottom p {
+  margin: 0;
 }
 
 /* ------------------ Media Queries -------------------- */
@@ -467,6 +632,43 @@ section {
   }
 }
 
+@media (max-width: 768px) {
+  #about-us-section,
+  #location-section {
+    padding: 2rem 1rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .location-content {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .about-intro {
+    font-size: 1.1rem;
+  }
+
+  .about-content {
+    text-align: center;
+  }
+
+  .map-container iframe {
+    height: 300px;
+  }
+
+  .section-divider {
+    max-width: 150px;
+    margin: 2rem auto;
+  }
+}
+
 /* Reservation layout breakpoint */
 @media (max-width: 640px) {
   #reservation-section-page {
@@ -482,13 +684,30 @@ section {
 
 /* Shared section styling */
 #order-section,
-#cart-section {
+#cart-section,
+#menu-section {
   max-width: 1100px;
   margin: 0 auto 4rem;
   padding: 2.5rem 2rem;
   background-color: #FFFFFF;
   border-radius: 18px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+#order-section > h2,
+#menu-section > h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #1E1E1E;
+}
+
+#order-section > p,
+#menu-section > p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #3A3A3A;
+  font-size: 1.05rem;
 }
 
 /* Category headings on order page */
@@ -633,19 +852,31 @@ section {
 /* Cart actions below the table */
 .cart-actions {
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 /* Link-styled button (Proceed to Checkout) */
 .button-link {
-  margin-left: 0.5rem;
+  margin-left: 0;
 }
 
 #checkout-section {
-  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  padding: 2rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  #order-section,
+  #cart-section,
+  #menu-section {
+    padding: 1.5rem 1rem;
+  }
+
   .menu-item {
     flex-direction: column;
     align-items: flex-start;
@@ -656,6 +887,10 @@ section {
     height: 180px;
   }
 
+  .cart-actions {
+    justify-content: center;
+  }
+
   .cart-table thead {
     display: none;
   }
@@ -663,18 +898,25 @@ section {
   .cart-table tbody tr {
     display: block;
     padding: 0.75rem 0;
+    border-bottom: 2px solid #E0E0E0;
   }
 
   .cart-table tbody td {
     display: flex;
     justify-content: space-between;
     border-bottom: none;
+    padding: 0.5rem 0;
   }
 
   .cart-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
     margin-right: 0.5rem;
+  }
+
+  #checkout-section .button-link {
+    display: block;
+    margin: 0.5rem auto;
   }
 }
 

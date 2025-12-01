@@ -91,12 +91,13 @@ foreach ($_SESSION['cart'] as $id => $item) {
     </section>
 
     <section id="cart-section">
-      <div id="checkout-section">
-        <?php if (empty($_SESSION['cart'])): ?>
-          <p>Your cart is currently empty.</p>
-          <p><a href="order.php" class="button-link">Browse the menu and add some items.</a></p>
-        <?php else: ?>
+      <?php if (empty($_SESSION['cart'])): ?>
+        <div id="checkout-section">
+          <h2>Your Cart is Empty</h2>
+          <p>Looks like you haven't added any items to your cart yet.</p>
+          <a href="order.php" class="button-link">Browse Menu</a>
         </div>
+      <?php else: ?>
         <form action="cart.php" method="post">
           <input type="hidden" name="action" value="update">
 
@@ -115,13 +116,14 @@ foreach ($_SESSION['cart'] as $id => $item) {
                 $subtotal = $item['price'] * $item['quantity'];
                 ?>
                 <tr>
-                  <td><?= htmlspecialchars($item['name']) ?></td>
-                  <td>$<?= number_format($item['price'], 2) ?></td>
-                  <td>
+                  <td data-label="Item"><?= htmlspecialchars($item['name']) ?></td>
+                  <td data-label="Price">$<?= number_format($item['price'], 2) ?></td>
+                  <td data-label="Quantity">
                     <input type="number" name="quantities[<?= $id ?>]" value="<?= $item['quantity'] ?>" min="0">
                   </td>
-                  <td>$<?= number_format($subtotal, 2) ?></td>
-                  <td><a href="cart.php?remove=<?= $id ?>">Remove</a></td>
+                  <td data-label="Subtotal">$<?= number_format($subtotal, 2) ?></td>
+                  <td data-label="Action"><a href="cart.php?remove=<?= $id ?>"
+                      style="color: #C91818; text-decoration: underline;">Remove</a></td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
@@ -131,21 +133,54 @@ foreach ($_SESSION['cart'] as $id => $item) {
 
           <div class="cart-actions">
             <button type="submit">Update Cart</button>
+            <a href="order.php" class="button-link">Continue Shopping</a>
           </div>
         </form>
 
-        <form action="cart.php" method="post" style="display:inline-block; margin-right:1rem;">
-          <input type="hidden" name="action" value="clear">
-          <button type="submit">Clear Cart</button>
-        </form>
+        <div class="cart-actions" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid #E0E0E0;">
+          <a href="checkout.php" class="button-link" style="font-size: 1.05rem; padding: 0.7rem 1.5rem;">Proceed to
+            Checkout</a>
 
-        <a href="checkout.php" class="button-link">Proceed to Checkout</a>
+          <form action="cart.php" method="post" style="display:inline-block; margin-left:1rem;">
+            <input type="hidden" name="action" value="clear">
+            <button type="submit" style="background-color: #666; font-size: 0.9rem;">Clear Cart</button>
+          </form>
+        </div>
       <?php endif; ?>
     </section>
   </main>
 
   <footer id="site-footer">
-    <p>&copy; 2025 Tokyo Bloom Sushi and Grill. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Tokyo Bloom</h3>
+        <p>Authentic Japanese cuisine<br>in the heart of the city</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Location</h3>
+        <p>123 Sakura Boulevard<br>
+          Downtown District<br>
+          San Francisco, CA 94102</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Phone: (415) 555-SUSHI<br>
+          Email: info@tokyobloom.com</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Hours</h3>
+        <p>Mon-Fri: 11am - 10pm<br>
+          Sat: 5pm - 11pm<br>
+          Sun: Closed</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Tokyo Bloom Sushi and Grill. All rights reserved.</p>
+    </div>
   </footer>
 </body>
 
