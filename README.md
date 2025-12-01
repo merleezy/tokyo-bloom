@@ -316,7 +316,6 @@ Managed via MySQL database or phpMyAdmin interface
 
 - Hero images: `images/`
 - Menu items: `images/menu/`
-- Recommended: WebP or AVIF for performance
 
 ---
 
