@@ -1264,4 +1264,37 @@ section {
   }
 }
 
+/* -------------------- Form Validation Styles -------------------- */
+.error-message {
+  background-color: #fee;
+  border-left: 4px solid #c33;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  color: #721c24;
+}
+
+.field-error {
+  display: block;
+  color: #c33;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+input.input-error,
+textarea.input-error,
+select.input-error {
+  border-color: #c33 !important;
+  background-color: #fff5f5;
+}
+
+input.input-error:focus,
+textarea.input-error:focus,
+select.input-error:focus {
+  outline: 2px solid #c33;
+  outline-offset: 2px;
+}
+
 /* End of stylesheet */

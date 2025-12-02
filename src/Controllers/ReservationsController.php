@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Repositories\ReservationRepository;
 use App\Services\Logger;
+use App\Services\Validator;
 
 class ReservationsController extends Controller
 {
@@ -21,6 +22,8 @@ class ReservationsController extends Controller
       'error' => $error,
       'selectedDate' => $selectedDate,
       'occupiedSlots' => $occupiedSlots,
+      'errors' => [],
+      'old' => []
     ]);
   }
 
@@ -34,22 +37,56 @@ class ReservationsController extends Controller
 
     if (!csrf_verify($_POST['csrf_token'] ?? null)) {
       Logger::warning('Reservations: CSRF verification failed');
-      header('Location: ' . base_url('/reservations?error=invalid'));
+      
+      $selectedDate = $_POST['date'] ?? date('Y-m-d');
+      $repo = new ReservationRepository();
+      $occupiedSlots = $repo->getOccupiedTimeSlots($selectedDate);
+      
+      $this->render('reservations_form', [
+        'title' => 'Reservations',
+        'error' => 'csrf',
+        'old' => $_POST,
+        'selectedDate' => $selectedDate,
+        'occupiedSlots' => $occupiedSlots,
+        'errors' => []
+      ]);
       return;
     }
 
-    $name = trim((string) ($_POST['name'] ?? ''));
-    $email = trim((string) ($_POST['email'] ?? ''));
-    $phone = trim((string) ($_POST['phone'] ?? ''));
-    $date = (string) ($_POST['date'] ?? '');
-    $time = (string) ($_POST['time'] ?? '');
-    $guests = (int) ($_POST['guests'] ?? 0);
+    // Validate input using Validator service
+    $validator = new Validator();
+    $isValid = $validator->validate($_POST, [
+      'name' => 'required|min:2',
+      'email' => 'required|email',
+      'phone' => 'required|phone',
+      'date' => 'required|date',
+      'time' => 'required|time',
+      'guests' => 'required|integer|min:1'
+    ]);
 
-    if ($name === '' || $email === '' || $phone === '' || $date === '' || $time === '' || $guests < 1) {
-      Logger::warning('Reservations: invalid input', compact('name', 'email', 'phone', 'date', 'time', 'guests'));
-      header('Location: ' . base_url('/reservations?error=invalid'));
+    if (!$isValid) {
+      Logger::warning('Reservations: validation failed', ['errors' => $validator->errors()]);
+      
+      $selectedDate = $_POST['date'] ?? date('Y-m-d');
+      $repo = new ReservationRepository();
+      $occupiedSlots = $repo->getOccupiedTimeSlots($selectedDate);
+      
+      $this->render('reservations_form', [
+        'title' => 'Reservations',
+        'errors' => $validator->errors(),
+        'old' => $_POST,
+        'selectedDate' => $selectedDate,
+        'occupiedSlots' => $occupiedSlots
+      ]);
       return;
     }
+
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $guests = (int) $_POST['guests'];
 
     $repo = new ReservationRepository();
     try {
@@ -64,7 +101,18 @@ class ReservationsController extends Controller
     } catch (\PDOException $e) {
       if ($e->getCode() === '23000') {
         Logger::warning('Reservations: time slot already taken', compact('date', 'time'));
-        header('Location: ' . base_url('/reservations?error=slot_taken'));
+        
+        $repo = new ReservationRepository();
+        $occupiedSlots = $repo->getOccupiedTimeSlots($date);
+        
+        $this->render('reservations_form', [
+          'title' => 'Reservations',
+          'error' => 'slot_taken',
+          'old' => $_POST,
+          'selectedDate' => $date,
+          'occupiedSlots' => $occupiedSlots,
+          'errors' => []
+        ]);
         return;
       }
       Logger::error('Reservations: database error', ['error' => $e->getMessage(), 'code' => $e->getCode()]);

@@ -6,6 +6,7 @@ namespace App\Controllers;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use App\Services\Logger;
+use App\Services\Validator;
 
 class ContactController extends Controller
 {
@@ -28,25 +29,35 @@ class ContactController extends Controller
 
     if (!csrf_verify($_POST['csrf_token'] ?? null)) {
       Logger::warning('Contact: CSRF verification failed');
-      header('Location: ' . base_url('/contact?error=invalid'));
+      $this->render('contact_form', [
+        'title' => 'Contact',
+        'error' => 'csrf',
+        'old' => $_POST
+      ]);
       return;
     }
 
-    $name = trim((string) ($_POST['name'] ?? ''));
-    $email = trim((string) ($_POST['email'] ?? ''));
-    $message = trim((string) ($_POST['message'] ?? ''));
+    // Validate input using Validator service
+    $validator = new Validator();
+    $isValid = $validator->validate($_POST, [
+      'name' => 'required|min:2',
+      'email' => 'required|email',
+      'message' => 'required|min:10'
+    ]);
 
-    if ($name === '' || $email === '' || $message === '') {
-      Logger::warning('Contact: invalid input', compact('name', 'email'));
-      header('Location: ' . base_url('/contact?error=invalid'));
+    if (!$isValid) {
+      Logger::warning('Contact: validation failed', ['errors' => $validator->errors()]);
+      $this->render('contact_form', [
+        'title' => 'Contact',
+        'errors' => $validator->errors(),
+        'old' => $_POST
+      ]);
       return;
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      Logger::warning('Contact: invalid email format', ['email' => $email]);
-      header('Location: ' . base_url('/contact?error=invalid'));
-      return;
-    }
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $message = trim($_POST['message']);
 
     // Send email via PHPMailer
     $mail = new PHPMailer(true);
