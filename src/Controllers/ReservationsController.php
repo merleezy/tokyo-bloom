@@ -37,11 +37,11 @@ class ReservationsController extends Controller
 
     if (!csrf_verify($_POST['csrf_token'] ?? null)) {
       Logger::warning('Reservations: CSRF verification failed');
-      
+
       $selectedDate = $_POST['date'] ?? date('Y-m-d');
       $repo = new ReservationRepository();
       $occupiedSlots = $repo->getOccupiedTimeSlots($selectedDate);
-      
+
       $this->render('reservations_form', [
         'title' => 'Reservations',
         'error' => 'csrf',
@@ -66,11 +66,11 @@ class ReservationsController extends Controller
 
     if (!$isValid) {
       Logger::warning('Reservations: validation failed', ['errors' => $validator->errors()]);
-      
+
       $selectedDate = $_POST['date'] ?? date('Y-m-d');
       $repo = new ReservationRepository();
       $occupiedSlots = $repo->getOccupiedTimeSlots($selectedDate);
-      
+
       $this->render('reservations_form', [
         'title' => 'Reservations',
         'errors' => $validator->errors(),
@@ -101,10 +101,10 @@ class ReservationsController extends Controller
     } catch (\PDOException $e) {
       if ($e->getCode() === '23000') {
         Logger::warning('Reservations: time slot already taken', compact('date', 'time'));
-        
+
         $repo = new ReservationRepository();
         $occupiedSlots = $repo->getOccupiedTimeSlots($date);
-        
+
         $this->render('reservations_form', [
           'title' => 'Reservations',
           'error' => 'slot_taken',
