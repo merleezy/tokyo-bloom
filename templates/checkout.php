@@ -18,14 +18,10 @@
   </section>
 
   <section id="checkout-section">
-    <?php if (!empty($error)): ?>
-      <p class="error">
-        <?php 
-          if ($error === 'invalid_csrf') echo 'Session expired. Please try again.';
-          elseif ($error === 'empty_cart') echo 'Your cart is empty. Please add items before checking out.';
-          else echo 'Please complete all required fields correctly.';
-        ?>
-      </p>
+    <?php if (!empty($error) && $error === 'csrf'): ?>
+      <p class="error-message">Security validation failed. Please try again.</p>
+    <?php elseif (!empty($error) && $error === 'empty_cart'): ?>
+      <p class="error-message">Your cart is empty. Please add items before checking out.</p>
     <?php endif; ?>
 
     <?php if (empty($cart)): ?>
@@ -66,21 +62,33 @@
           <div id="info-container">
             <div id="personal-info">
               <label for="name">Full Name:</label>
-              <input type="text" id="name" name="name" required>
+              <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($old['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['name']) ? 'input-error' : ''; ?>">
+              <?php if (!empty($errors['name'])): ?>
+                <span class="field-error"><?php echo htmlspecialchars($errors['name'][0], ENT_QUOTES, 'UTF-8'); ?></span>
+              <?php endif; ?>
 
               <label for="email">Email:</label>
-              <input type="email" id="email" name="email" required>
+              <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($old['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['email']) ? 'input-error' : ''; ?>">
+              <?php if (!empty($errors['email'])): ?>
+                <span class="field-error"><?php echo htmlspecialchars($errors['email'][0], ENT_QUOTES, 'UTF-8'); ?></span>
+              <?php endif; ?>
 
               <label for="phone">Phone Number:</label>
-              <input type="tel" id="phone" name="phone" required>
+              <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($old['phone'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['phone']) ? 'input-error' : ''; ?>">
+              <?php if (!empty($errors['phone'])): ?>
+                <span class="field-error"><?php echo htmlspecialchars($errors['phone'][0], ENT_QUOTES, 'UTF-8'); ?></span>
+              <?php endif; ?>
             </div>
 
             <div id="reservation-info">
               <label for="address">Delivery Address:</label>
-              <textarea id="address" name="address" rows="3" required></textarea>
+              <textarea id="address" name="address" rows="3" required class="<?php echo !empty($errors['address']) ? 'input-error' : ''; ?>"><?php echo htmlspecialchars($old['address'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
+              <?php if (!empty($errors['address'])): ?>
+                <span class="field-error"><?php echo htmlspecialchars($errors['address'][0], ENT_QUOTES, 'UTF-8'); ?></span>
+              <?php endif; ?>
 
               <label for="notes">Special Instructions (Optional):</label>
-              <textarea id="notes" name="notes" rows="3" placeholder="Allergies, preferences, etc."></textarea>
+              <textarea id="notes" name="notes" rows="3" placeholder="Allergies, preferences, etc."><?php echo htmlspecialchars($old['notes'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
             </div>
           </div>
 

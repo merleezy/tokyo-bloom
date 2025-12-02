@@ -8,6 +8,7 @@ use App\Database\Connection;
 use App\Repositories\MenuRepository;
 use App\Repositories\OrderRepository;
 use App\Services\Logger;
+use App\Services\Validator;
 
 class CheckoutController extends Controller
 {
@@ -20,6 +21,8 @@ class CheckoutController extends Controller
       'cart' => $cart,
       'totals' => $totals,
       'error' => null,
+      'errors' => [],
+      'old' => []
     ]);
   }
 
@@ -68,24 +71,64 @@ class CheckoutController extends Controller
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
       http_response_code(400);
       Logger::warning('Checkout: CSRF verification failed');
-      $this->render('checkout', ['title' => 'Checkout', 'cart' => $_SESSION['cart'] ?? [], 'error' => 'invalid_csrf']);
+
+      $cart = $this->hydrateCart($_SESSION['cart'] ?? []);
+      $totals = $this->calculateTotals($cart);
+
+      $this->render('checkout', [
+        'title' => 'Checkout',
+        'cart' => $cart,
+        'totals' => $totals,
+        'error' => 'csrf',
+        'errors' => [],
+        'old' => $_POST
+      ]);
       return;
     }
+
     $cart = $_SESSION['cart'] ?? [];
     if (!$cart) {
       Logger::warning('Checkout: empty cart on place order');
-      $this->render('checkout', ['title' => 'Checkout', 'cart' => [], 'error' => 'empty_cart']);
+      $this->render('checkout', [
+        'title' => 'Checkout',
+        'cart' => [],
+        'totals' => ['subtotal' => 0, 'tax' => 0, 'total' => 0],
+        'error' => 'empty_cart',
+        'errors' => [],
+        'old' => []
+      ]);
       return;
     }
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $phone = trim($_POST['phone'] ?? '');
-    $address = trim($_POST['address'] ?? '');
-    if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $address === '') {
-      Logger::warning('Checkout: invalid input', compact('name', 'email', 'phone'));
-      $this->render('checkout', ['title' => 'Checkout', 'cart' => $cart, 'error' => 'invalid_input']);
+
+    // Validate input using Validator service
+    $validator = new Validator();
+    $isValid = $validator->validate($_POST, [
+      'name' => 'required|min:2',
+      'email' => 'required|email',
+      'phone' => 'required|phone',
+      'address' => 'required|min:10'
+    ]);
+
+    if (!$isValid) {
+      Logger::warning('Checkout: validation failed', ['errors' => $validator->errors()]);
+
+      $hydratedCart = $this->hydrateCart($cart);
+      $totals = $this->calculateTotals($hydratedCart);
+
+      $this->render('checkout', [
+        'title' => 'Checkout',
+        'cart' => $hydratedCart,
+        'totals' => $totals,
+        'errors' => $validator->errors(),
+        'old' => $_POST
+      ]);
       return;
     }
+
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    $address = trim($_POST['address']);
     // Build detailed items from cart
     $repoMenu = new MenuRepository();
     $menu = $repoMenu->getMenu();
