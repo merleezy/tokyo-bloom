@@ -330,7 +330,7 @@ tokyo-bloom/
 3. **Install PHP dependencies**
 
    ```bash
-   composer install
+   php composer.phar install
    ```
 
 4. **Configure environment variables**
