@@ -7,4 +7,5 @@ return [
   'debug' => filter_var($_ENV['APP_DEBUG'] ?? false, FILTER_VALIDATE_BOOLEAN),
   'url' => rtrim($_ENV['APP_URL'] ?? '', '/'),
   'timezone' => 'America/Los_Angeles',
+  'tax_rate' => 0.10,
 ];

@@ -5,14 +5,24 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use App\Services\Logger;
+use App\Services\CartService;
+use App\Repositories\MenuRepository;
 
 class CartController extends Controller
 {
   public function index(): void
   {
     $cart = $_SESSION['cart'] ?? [];
-    $detailed = $this->hydrateCart($cart);
-    $totals = $this->calculateTotals($detailed);
+    
+    // In a real DI container we'd inject this, but for now instantiate
+    $basePath = dirname(__DIR__, 2);
+    $config = require $basePath . '/config/app.php';
+    
+    $cartService = new CartService(new MenuRepository(), $config);
+    
+    $detailed = $cartService->hydrateCart($cart);
+    $totals = $cartService->calculateTotals($detailed);
+    
     $this->render('cart', [
       'title' => 'Your Cart',
       'cart' => $detailed,
@@ -74,49 +84,5 @@ class CartController extends Controller
     Logger::info('Cart: cleared');
     header('Location: ' . base_url('/cart'));
     exit;
-  }
-
-  private function hydrateCart(array $cart): array
-  {
-    if (!$cart) {
-      return [];
-    }
-    $repo = new \App\Repositories\MenuRepository();
-    $menu = $repo->getMenu();
-    $itemsById = [];
-    foreach (($menu['itemsByCategory'] ?? []) as $items) {
-      foreach ($items as $item) {
-        $itemsById[(int) $item['id']] = $item;
-      }
-    }
-    $detailed = [];
-    foreach ($cart as $id => $qty) {
-      $id = (int) $id;
-      $qty = (int) $qty;
-      if (!isset($itemsById[$id])) {
-        continue;
-      }
-      $item = $itemsById[$id];
-      $detailed[] = [
-        'id' => $id,
-        'name' => $item['name'],
-        'price' => (float) $item['price'],
-        'quantity' => $qty,
-        'subtotal' => (float) $item['price'] * $qty,
-      ];
-    }
-    return $detailed;
-  }
-
-  private function calculateTotals(array $detailed): array
-  {
-    $subtotal = 0.0;
-    foreach ($detailed as $row) {
-      $subtotal += (float) $row['subtotal'];
-    }
-    $taxRate = 0.10; // placeholder 10%
-    $tax = $subtotal * $taxRate;
-    $total = $subtotal + $tax;
-    return ['subtotal' => $subtotal, 'tax' => $tax, 'total' => $total];
   }
 }

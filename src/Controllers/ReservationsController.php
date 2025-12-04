@@ -33,7 +33,7 @@ class ReservationsController extends Controller
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
       Logger::warning('Reservations: invalid request method', ['method' => $_SERVER['REQUEST_METHOD'] ?? 'unknown']);
       header('Location: ' . base_url('/reservations'));
-      return;
+      exit;
     }
 
     if (!csrf_verify($_POST['csrf_token'] ?? null)) {
@@ -152,7 +152,7 @@ class ReservationsController extends Controller
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
       Logger::warning('Reservations: cancel invalid method', ['method' => $_SERVER['REQUEST_METHOD'] ?? 'unknown']);
       header('Location: ' . base_url('/reservations'));
-      return;
+      exit;
     }
 
     if (!csrf_verify($_POST['csrf_token'] ?? null)) {
@@ -181,13 +181,12 @@ class ReservationsController extends Controller
 
     // Delete the reservation
     try {
-      $stmt = (new \App\Database\Connection())->make()->prepare('DELETE FROM reservations WHERE id = :id');
-      $stmt->execute([':id' => $id]);
+      $repo->delete($id);
     } catch (\PDOException $e) {
       http_response_code(500);
       echo 'Failed to cancel reservation.';
       Logger::error('Reservations: cancel DB error', ['error' => $e->getMessage(), 'id' => $id]);
-      return;
+      exit;
     }
 
     Logger::info('Reservations: canceled', ['id' => $id]);

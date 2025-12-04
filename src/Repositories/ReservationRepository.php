@@ -49,4 +49,10 @@ class ReservationRepository
     Logger::info('Repo: found occupied slots', ['date' => $date, 'count' => count($slots), 'slots' => $slots]);
     return $slots;
   }
+
+  public function delete(int $id): void
+  {
+    $stmt = $this->pdo->prepare('DELETE FROM reservations WHERE id = :id');
+    $stmt->execute([':id' => $id]);
+  }
 }

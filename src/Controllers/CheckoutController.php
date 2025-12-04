@@ -7,6 +7,7 @@ use App\Controllers\Controller;
 use App\Database\Connection;
 use App\Repositories\MenuRepository;
 use App\Repositories\OrderRepository;
+use App\Services\CartService;
 use App\Services\Logger;
 use App\Services\Validator;
 
@@ -14,8 +15,12 @@ class CheckoutController extends Controller
 {
   public function index(): void
   {
-    $cart = $this->hydrateCart($_SESSION['cart'] ?? []);
-    $totals = $this->calculateTotals($cart);
+    $basePath = dirname(__DIR__, 2);
+    $config = require $basePath . '/config/app.php';
+    $cartService = new CartService(new MenuRepository(), $config);
+
+    $cart = $cartService->hydrateCart($_SESSION['cart'] ?? []);
+    $totals = $cartService->calculateTotals($cart);
     $this->render('checkout', [
       'title' => 'Checkout',
       'cart' => $cart,
@@ -26,54 +31,18 @@ class CheckoutController extends Controller
     ]);
   }
 
-  private function hydrateCart(array $sessionCart): array
-  {
-    $repoMenu = new MenuRepository();
-    $menu = $repoMenu->getMenu();
-    $itemsById = [];
-    foreach (($menu['itemsByCategory'] ?? []) as $items) {
-      foreach ($items as $item) {
-        $itemsById[(int) $item['id']] = $item;
-      }
-    }
-    $hydrated = [];
-    foreach ($sessionCart as $id => $qty) {
-      $id = (int) $id;
-      $qty = (int) $qty;
-      if (!isset($itemsById[$id]) || $qty < 1) {
-        continue;
-      }
-      $item = $itemsById[$id];
-      $hydrated[] = [
-        'id' => $id,
-        'name' => $item['name'],
-        'price' => (float) $item['price'],
-        'quantity' => $qty,
-        'subtotal' => (float) $item['price'] * $qty,
-      ];
-    }
-    return $hydrated;
-  }
-
-  private function calculateTotals(array $cart): array
-  {
-    $subtotal = 0.0;
-    foreach ($cart as $row) {
-      $subtotal += (float) $row['subtotal'];
-    }
-    $tax = $subtotal * 0.10;
-    $total = $subtotal + $tax;
-    return ['subtotal' => $subtotal, 'tax' => $tax, 'total' => $total];
-  }
-
   public function place(): void
   {
+    $basePath = dirname(__DIR__, 2);
+    $config = require $basePath . '/config/app.php';
+    $cartService = new CartService(new MenuRepository(), $config);
+
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
       http_response_code(400);
       Logger::warning('Checkout: CSRF verification failed');
 
-      $cart = $this->hydrateCart($_SESSION['cart'] ?? []);
-      $totals = $this->calculateTotals($cart);
+      $cart = $cartService->hydrateCart($_SESSION['cart'] ?? []);
+      $totals = $cartService->calculateTotals($cart);
 
       $this->render('checkout', [
         'title' => 'Checkout',
@@ -112,8 +81,8 @@ class CheckoutController extends Controller
     if (!$isValid) {
       Logger::warning('Checkout: validation failed', ['errors' => $validator->errors()]);
 
-      $hydratedCart = $this->hydrateCart($cart);
-      $totals = $this->calculateTotals($hydratedCart);
+      $hydratedCart = $cartService->hydrateCart($cart);
+      $totals = $cartService->calculateTotals($hydratedCart);
 
       $this->render('checkout', [
         'title' => 'Checkout',
