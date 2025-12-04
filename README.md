@@ -27,8 +27,11 @@ Features include a home page with Google Maps integration, an online ordering an
 ![Git](https://img.shields.io/badge/Git-000000?style=flat&logo=git&logoColor=white)
 
 ## Key Challenges and Solutions
-*   **Challenge:** [to be added]
-*   **Solution:** [to be added]
+*   **Challenge:** Getting the reservation system to lock reserved times and display that in the UI in real time.  
+*   **Solution:** Adding a small segment of code to refresh the page every time the user changes the data, and writing a JavaScript script to ensure form data is carried across during the refresh.  
+  
+*   **Challenge:**  
+*   **Solution:**  
 
 ## Features
 
