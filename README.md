@@ -25,7 +25,7 @@ Made as part of a school project/learning experience.
 - Environment variables for sensitive data
 - Secure session management
 - XSS protection headers
-- File access restrictions via `.htaccess`
+- File access restrictions via .htaccess
 
 ### **Home Page**
 
@@ -77,7 +77,7 @@ Made as part of a school project/learning experience.
 - Special instructions field
 - Order summary with itemized breakdown
 - Visual confirmation page
-- Order history (session-based)
+- Order history
 
 ### **Reservations System**
 
@@ -86,7 +86,7 @@ Made as part of a school project/learning experience.
 - Party size specification
 - Contact information collection
 - Email confirmation
-- Reservation management (view/cancel)
+- Reservation management
 - Database-backed reservation storage
 
 ### **Contact Page**
@@ -170,9 +170,9 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ### **Frontend**
 
-- HTML5 (Semantic markup)
-- CSS3 (Custom properties, Grid, Flexbox)
-- Vanilla JavaScript (ES6+)
+- HTML
+- CSS
+- JavaScript
 
 ### **Backend**
 
@@ -195,10 +195,10 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ### **Prerequisites**
 
-- **XAMPP** (or similar PHP/MySQL environment)
+- XAMPP (or similar PHP/MySQL environment)
 - PHP 8.0 or higher
-- MySQL/MariaDB
-- Composer (PHP dependency manager)
+- MySQL
+- Composer
 - Modern web browser
 
 ### **Installation**
