@@ -11,8 +11,6 @@
 
 Tokyo Bloom is a fully-featured, modern Japanese restaurant website built with clean MVC architecture. Features include online ordering with session-based cart, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system. The site showcases authentic Japanese cuisine with an elegant, responsive design optimized for both desktop and mobile experiences.
 
----
-
 ## Key Features
 
 ### **MVC Architecture**
@@ -108,8 +106,6 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant website built with c
 - Confirmation page after submission
 - Restaurant contact details
 - Operating hours reference
-
----
 
 ## Design System
 
@@ -223,77 +219,6 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 - Apache (XAMPP)
 - mod_rewrite enabled
 - PHP mail configuration
-
----
-
-## Project Structure
-
-```
-tokyo-bloom/
-├── public/                           # Web root (point Apache here)
-│   ├── index.php                     # Front controller
-│   ├── .htaccess                     # URL rewriting & security
-│   ├── css/
-│   │   └── style.css                 # Main stylesheet
-│   ├── js/
-│   │   └── scripts.js                # Interactive features
-│   ├── images/                       # Static assets
-│   └── fonts/                        # Custom fonts
-├── src/                              # Application code
-│   ├── Bootstrap.php                 # Application initialization
-│   ├── Router.php                    # URL routing
-│   ├── helpers.php                   # Global helper functions
-│   ├── Controllers/                  # Request handlers
-│   │   ├── Controller.php            # Base controller
-│   │   ├── HomeController.php
-│   │   ├── MenuController.php
-│   │   ├── OrderController.php
-│   │   ├── CartController.php
-│   │   ├── CheckoutController.php
-│   │   ├── ReservationsController.php
-│   │   └── ContactController.php
-│   ├── Repositories/                 # Data access layer
-│   │   ├── MenuRepository.php
-│   │   ├── OrderRepository.php
-│   │   └── ReservationRepository.php
-│   ├── Services/                     # Business logic
-│   │   ├── Validator.php             # Input validation
-│   │   └── Logger.php                # Monolog wrapper
-│   └── Database/
-│       └── Connection.php            # PDO connection
-├── templates/                        # View files
-│   ├── layout.php                    # Master layout
-│   ├── home.php
-│   ├── menu.php
-│   ├── order.php
-│   ├── cart.php
-│   ├── checkout.php
-│   ├── checkout_success.php
-│   ├── reservations_form.php
-│   ├── reservations_success.php
-│   ├── reservations_canceled.php
-│   ├── contact_form.php
-│   └── contact_success.php
-├── routes/
-│   └── web.php                       # Route definitions
-├── database/
-│   ├── migrate.php                   # Migration runner
-│   └── migrations/
-│       ├── 000_create_menu_items.sql
-│       ├── 001_create_orders_tables.sql
-│       └── 002_create_reservations.sql
-├── logs/                             # Application logs
-│   ├── app.log                       # General logs
-│   └── error.log                     # Error logs
-├── vendor/                           # Composer dependencies
-├── .env                              # Environment configuration
-├── .env.example                      # Environment template
-├── composer.json                     # PHP dependencies
-├── tokyo_bloom.sql                   # Database dump
-└── README.md                         # This file
-```
-
----
 
 ## Setup Instructions
 
