@@ -1,11 +1,32 @@
 # Tokyo Bloom Sushi and Grill
 
+<!-- ![Project Screenshot](path/to/screenshot.png)  -->
+<!-- TODO: Add a real image here -->
+
 ## Project Overview
 
-Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include a home page with Google Maps integration, an online ordering and checkout system, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system.  
+Tokyo Bloom is a custom-built, full-stack MVC web application simulating a Japanese restaurant management system. Built using PHP, MySQL, and HTML/CSS/JS to develop and demonstrate a deep understanding of core web development principles and software architecture. Features include a home page with Google Maps integration, an online ordering and checkout system, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system.  
 Made as part of a school project/learning experience.
 
-## Key Features
+<!-- TODO: Add live demo or video walkthrough -->
+
+## Technical Highlights
+*   **Custom MVC Architecture:** Implemented a Front Controller pattern with a custom Router from scratch.
+*   **Security First:** Full CSRF protection, PDO prepared statements, and XSS sanitization on all inputs.
+*   **RESTful Routing:** Clean URL structure handling dynamic routes and controller dispatching.
+*   **Database Design:** Relational MySQL schema managing complex relationships between Orders, Items, and Reservations.
+
+## Tech Stack
+![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?style=flat&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=flat&logo=mysql&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Composer](https://img.shields.io/badge/Composer-885630?style=flat&logo=composer&logoColor=white)
+
+## Key Challenges and Solutions
+*   **Challenge:** 
+*   **Solution:** 
+
+## Features
 
 ### **MVC Architecture**
 
@@ -103,70 +124,25 @@ Made as part of a school project/learning experience.
 
 ```
 Primary Colors:
-├─ Crimson Red      #C91818  → Main accent / CTA buttons
-├─ Sakura Pink      #F5B7C3  → Highlights / borders
-├─ Charcoal Black   #1E1E1E  → Headers / dark sections
-└─ Pure White       #FFFFFF  → Text / light backgrounds
+  Crimson Red      #C91818 -> Main accent / CTA buttons
+  Sakura Pink      #F5B7C3 -> Highlights / borders
+  Charcoal Black   #1E1E1E -> Headers / dark sections
+  Pure White       #FFFFFF -> Text / light backgrounds
 
 Supporting Colors:
-├─ Slate Gray       #3A3A3A  → Body text / descriptions
-├─ Warm Beige       #F9E8D9  → Page background
-└─ Deep Cherry      #A00E1A  → Hover / active states
+  Slate Gray       #3A3A3A -> Body text / descriptions
+  Warm Beige       #F9E8D9 -> Page background
+  Deep Cherry      #A00E1A -> Hover / active states
 ```
 
-## Database Schema
+### **Typography**
 
-### **orders**
-
-```sql
-id                INT PRIMARY KEY AUTO_INCREMENT
-customer_name     VARCHAR(255) NOT NULL
-customer_email    VARCHAR(255) NOT NULL
-customer_phone    VARCHAR(50) NOT NULL
-customer_address  TEXT NOT NULL
-created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+```
+Primary Font: Lulo Clean
+Secondary Font: Sohne Buch
 ```
 
-### **order_items**
-
-```sql
-id            INT PRIMARY KEY AUTO_INCREMENT
-order_id      INT NOT NULL
-item_id       INT NOT NULL
-name          VARCHAR(255) NOT NULL
-price         DECIMAL(10,2) NOT NULL
-quantity      INT NOT NULL
-FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-```
-
-### **menu_items**
-
-```sql
-id            INT PRIMARY KEY AUTO_INCREMENT
-name          VARCHAR(255) NOT NULL
-description   TEXT
-price         DECIMAL(10,2) NOT NULL
-category      VARCHAR(100) NOT NULL
-image_url     VARCHAR(255)
-created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-```
-
-### **reservations**
-
-```sql
-id            INT PRIMARY KEY AUTO_INCREMENT
-name          VARCHAR(255) NOT NULL
-email         VARCHAR(255) NOT NULL
-phone         VARCHAR(20) NOT NULL
-date          DATE NOT NULL
-time          TIME NOT NULL
-guests        INT NOT NULL
-created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-```
-
----
-
-## Technical Stack
+## Full Technical Stack
 
 ### **Frontend**
 
@@ -254,47 +230,9 @@ C:\xampp\php\php.exe database\migrate.php
 # Update dependencies
 composer update
 
-# Dump autoload files
-composer dump-autoload
 ```
 
-## API Endpoints
-
-All endpoints are accessed via clean URLs:
-
-- `GET /` - Home page
-- `GET /menu` - Menu listing
-- `GET /order` - Order page
-- `POST /order/add` - Add item to cart
-- `GET /cart` - View cart
-- `POST /cart/update` - Update cart quantities
-- `POST /cart/remove` - Remove cart item
-- `POST /cart/clear` - Clear cart
-- `GET /checkout` - Checkout form
-- `POST /checkout` - Place order
-- `GET /reservations` - Reservation form
-- `POST /reservations` - Create reservation
-- `GET /reservations/confirm` - Confirmation page
-- `POST /reservations/cancel` - Cancel reservation
-- `GET /contact` - Contact form
-- `POST /contact` - Send message
-
-## Troubleshooting
-
-### **CSS/JS Not Loading**
-
-- Check `APP_URL` in `.env` matches your local path
-- Verify files exist in `public/css/` and `public/js/`
-- Clear browser cache
-
-### **Database Connection Failed**
-
-- Verify MySQL service is running
-- Check credentials in `.env`
-- Ensure database exists
-
----
-
-**Last Updated:** December 1, 2025  
-**Version:** 2.0.0  
-**Status:** Complete
+**Last Updated:** December 4, 2025  
+**Version:** 2.0.1
+**Status:** In Progress
+**Author (me):** Merleezy
