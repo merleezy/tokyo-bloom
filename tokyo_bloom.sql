@@ -82,10 +82,10 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `name`, `email`, `phone`, `date`, `time`, `guests`) VALUES
-(1, 'Vincente Angel Pass', 'Vincepass23@gmail.com', '9044521400', '2025-11-26', '11:00:00', 1),
-(2, 'Vincente Angel Pass', 'Vincepass23@gmail.com', '9044521400', '2025-11-27', '11:00:00', 1),
-(4, 'Vincente Angel Pass', 'Vincepass23@gmail.com', '9044521400', '2025-11-26', '12:30:00', 1),
-(5, 'Vincente Angel Pass', 'Vincepass23@gmail.com', '9044521400', '2025-11-21', '11:00:00', 1);
+(1, 'John Doe', 'johndoe@gmail.com', '1234567890', '2025-12-04', '11:00:00', 1),
+(2, 'Jane Doe', 'janedoe@gmail.com', '1234567890', '2025-12-04', '12:00:00', 1),
+(4, 'Bob Smith', 'bobsmith@gmail.com', '1234567890', '2025-12-04', '12:30:00', 1),
+(5, 'Alice Johnson', 'alicejohnson@gmail.com', '1234567890', '2025-12-04', '11:00:00', 1);
 
 --
 -- Indexes for dumped tables
