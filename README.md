@@ -23,8 +23,8 @@ Features include a home page with Google Maps integration, an online ordering an
 ![Composer](https://img.shields.io/badge/Composer-885630?style=flat&logo=composer&logoColor=white)
 
 ## Key Challenges and Solutions
-*   **Challenge:** 
-*   **Solution:** 
+*   **Challenge:** [to be added]
+*   **Solution:** [to be added]
 
 ## Features
 
@@ -117,6 +117,14 @@ Features include a home page with Google Maps integration, an online ordering an
 - Confirmation page after submission
 - Restaurant contact details
 - Operating hours reference
+
+### **Responsive Design**
+
+- Responsive layout for all pages
+- Mobile-optimized navigation
+- Touch-friendly buttons and forms
+- Hamburger menu for mobile devices
+- Proper scaling and spacing for all devices
 
 ## Design System
 
@@ -233,6 +241,6 @@ composer update
 ```
 
 **Last Updated:** December 4, 2025  
-**Version:** 2.0.1
-**Status:** In Progress
-**Author (me):** Merleezy
+**Version:** 2.0.1  
+**Status:** In Progress  
+**Author (me):** Merleezy  
