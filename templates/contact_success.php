@@ -18,7 +18,7 @@
   </section>
 
   <section id="reservation-section-page" style="margin: 3rem auto;">
-    <h2 style="color: #2ecc71; margin-bottom: 1rem;">✓ Thank You!</h2>
+    <h2 style="color: #2ecc71; margin-bottom: 1rem;">Thank You!</h2>
     <p style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 2rem;">
       We have received your message and will get back to you as soon as possible.
     </p>

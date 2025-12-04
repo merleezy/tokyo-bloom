@@ -1,5 +1,6 @@
 <header id="site-header">
-  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>" alt="Tokyo Bloom Logo" id="site-logo"></a>
+  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>"
+      alt="Tokyo Bloom Logo" id="site-logo"></a>
   <nav id="nav-bar">
     <ul>
       <li><a href="<?php echo base_url('/'); ?>">Home</a></li>
@@ -31,19 +32,25 @@
       <div id="info-container">
         <div id="personal-info">
           <label for="name">Name:</label>
-          <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($old['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['name']) ? 'input-error' : ''; ?>">
+          <input type="text" id="name" name="name"
+            value="<?php echo htmlspecialchars($old['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required
+            class="<?php echo !empty($errors['name']) ? 'input-error' : ''; ?>">
           <?php if (!empty($errors['name'])): ?>
             <span class="field-error"><?php echo htmlspecialchars($errors['name'][0], ENT_QUOTES, 'UTF-8'); ?></span>
           <?php endif; ?>
 
           <label for="email">Email:</label>
-          <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($old['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['email']) ? 'input-error' : ''; ?>">
+          <input type="email" id="email" name="email"
+            value="<?php echo htmlspecialchars($old['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required
+            class="<?php echo !empty($errors['email']) ? 'input-error' : ''; ?>">
           <?php if (!empty($errors['email'])): ?>
             <span class="field-error"><?php echo htmlspecialchars($errors['email'][0], ENT_QUOTES, 'UTF-8'); ?></span>
           <?php endif; ?>
 
           <label for="phone">Phone Number:</label>
-          <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($old['phone'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['phone']) ? 'input-error' : ''; ?>">
+          <input type="tel" id="phone" name="phone"
+            value="<?php echo htmlspecialchars($old['phone'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required
+            class="<?php echo !empty($errors['phone']) ? 'input-error' : ''; ?>">
           <?php if (!empty($errors['phone'])): ?>
             <span class="field-error"><?php echo htmlspecialchars($errors['phone'][0], ENT_QUOTES, 'UTF-8'); ?></span>
           <?php endif; ?>
@@ -51,7 +58,10 @@
 
         <div id="reservation-info">
           <label for="date">Date:</label>
-          <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($old['date'] ?? $selectedDate, ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['date']) ? 'input-error' : ''; ?>" onchange="window.location.search = '?date=' + this.value">
+          <input type="date" id="date" name="date"
+            value="<?php echo htmlspecialchars($old['date'] ?? $selectedDate, ENT_QUOTES, 'UTF-8'); ?>" required
+            class="<?php echo !empty($errors['date']) ? 'input-error' : ''; ?>"
+            onchange="window.location.search = '?date=' + this.value">
           <?php if (!empty($errors['date'])): ?>
             <span class="field-error"><?php echo htmlspecialchars($errors['date'][0], ENT_QUOTES, 'UTF-8'); ?></span>
           <?php endif; ?>
@@ -82,12 +92,13 @@
           <?php endif; ?>
 
           <label for="guests">Number of Guests:</label>
-          <select id="guests" name="guests" required class="<?php echo !empty($errors['guests']) ? 'input-error' : ''; ?>">
-            <?php 
+          <select id="guests" name="guests" required
+            class="<?php echo !empty($errors['guests']) ? 'input-error' : ''; ?>">
+            <?php
             $selectedGuests = $old['guests'] ?? 1;
-            for ($i = 1; $i <= 20; $i++): 
+            for ($i = 1; $i <= 20; $i++):
               $isSelected = $i == $selectedGuests ? 'selected' : '';
-            ?>
+              ?>
               <option value="<?= $i ?>" <?= $isSelected ?>><?= $i ?> guest<?= $i > 1 ? 's' : '' ?></option>
             <?php endfor; ?>
           </select>
@@ -100,6 +111,57 @@
       <button type="submit" class="button-link">Complete reservation</button>
     </form>
   </section>
+
+  <script>
+    // Preserve form data when date changes
+    (function () {
+      const form = document.getElementById('reservation-form');
+      const dateInput = document.getElementById('date');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+      const timeSelect = document.getElementById('time');
+      const guestsSelect = document.getElementById('guests');
+
+      // On page load, restore saved form data
+      window.addEventListener('DOMContentLoaded', function () {
+        const savedData = localStorage.getItem('reservationFormData');
+        if (savedData) {
+          try {
+            const data = JSON.parse(savedData);
+            if (data.name) nameInput.value = data.name;
+            if (data.email) emailInput.value = data.email;
+            if (data.phone) phoneInput.value = data.phone;
+            if (data.time) timeSelect.value = data.time;
+            if (data.guests) guestsSelect.value = data.guests;
+
+            // Clear the saved data after restoring
+            localStorage.removeItem('reservationFormData');
+          } catch (e) {
+            console.error('Error restoring form data:', e);
+            localStorage.removeItem('reservationFormData');
+          }
+        }
+      });
+
+      // Save form data before date change causes page refresh
+      dateInput.addEventListener('change', function () {
+        const formData = {
+          name: nameInput.value,
+          email: emailInput.value,
+          phone: phoneInput.value,
+          time: timeSelect.value,
+          guests: guestsSelect.value
+        };
+        localStorage.setItem('reservationFormData', JSON.stringify(formData));
+      });
+
+      // Clear saved data on successful form submission
+      form.addEventListener('submit', function () {
+        localStorage.removeItem('reservationFormData');
+      });
+    })();
+  </script>
 
   <footer id="site-footer">
     <div class="footer-content">

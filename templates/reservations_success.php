@@ -18,7 +18,7 @@
   </section>
 
   <section id="reservation-section-page" style="margin: 3rem auto;">
-    <h2 style="color: #2ecc71; margin-bottom: 1rem;">✓ Booking Successful!</h2>
+    <h2 style="color: #2ecc71; margin-bottom: 1rem;">Booking Successful!</h2>
     <p style="font-size: 1.15rem; margin-bottom: 2rem;">Thank you,
       <strong><?= htmlspecialchars($reservation['name']) ?></strong>. Your table has been reserved.
     </p>
