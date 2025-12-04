@@ -177,7 +177,7 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ### **Backend**
 
 - PHP 8.x
-- MySQL/MariaDB 10.4+
+- MySQL 10.4+
 - PDO for database queries
 - Session management
 - PHPMailer 6.x (via Composer)
@@ -189,7 +189,6 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 - Apache (XAMPP)
 - mod_rewrite enabled
-- PHP mail configuration
 
 ## Setup Instructions
 
@@ -217,12 +216,6 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
    - Create database: `tokyo_bloom`
    - Import `tokyo_bloom.sql`
 
-   **OR** run migrations:
-
-   ```bash
-   C:\xampp\php\php.exe database\migrate.php
-   ```
-
 3. **Install PHP dependencies**
 
    ```bash
@@ -237,18 +230,7 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
    copy .env.example .env
    ```
 
-   Edit `.env` with your settings:
-
-   ```env
-   APP_URL=http://localhost/tokyo-bloom/public
-   DB_HOST=localhost
-   DB_NAME=tokyo_bloom
-   DB_USER=root
-   DB_PASS=
-   MAIL_HOST=localhost
-   MAIL_PORT=1025
-   MAIL_FROM_ADDRESS=info@tokyobloom.com
-   ```
+   Edit `.env` with your settings (if necessary)
 
 5. **Start XAMPP services**
 
