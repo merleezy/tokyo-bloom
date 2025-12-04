@@ -32,19 +32,19 @@
     </div>
     <div class="features-grid">
       <div class="feature-card">
-        <h3>🍱 Fresh Ingredients</h3>
+        <h3>Fresh Ingredients</h3>
         <p>Locally sourced fish delivered daily, ensuring the highest quality and freshness</p>
       </div>
       <div class="feature-card">
-        <h3>👨‍🍳 Expert Chefs</h3>
+        <h3>Expert Chefs</h3>
         <p>Trained in Tokyo with decades of experience in traditional and contemporary cuisine</p>
       </div>
       <div class="feature-card">
-        <h3>🌸 Authentic Experience</h3>
+        <h3>Authentic Experience</h3>
         <p>Traditional techniques combined with modern presentation in an elegant setting</p>
       </div>
       <div class="feature-card">
-        <h3>🎉 Private Events</h3>
+        <h3>Private Events</h3>
         <p>Host your special occasions with customized menus and private dining options</p>
       </div>
     </div>
@@ -64,15 +64,15 @@
     <h2>Visit Us</h2>
     <div class="location-content">
       <div class="location-info">
-        <h3>📍 Location</h3>
+        <h3>Location</h3>
         <p>123 Sakura Boulevard<br>Downtown District<br>San Francisco, CA 94102</p>
       </div>
       <div class="location-info">
-        <h3>📞 Contact</h3>
+        <h3>Contact</h3>
         <p>Phone: (415) 555-SUSHI<br>Email: info@tokyobloom.com</p>
       </div>
       <div class="location-info">
-        <h3>🚗 Parking</h3>
+        <h3>Parking</h3>
         <p>Validated parking available<br>Street parking nearby<br>Valet service on weekends</p>
       </div>
     </div>
