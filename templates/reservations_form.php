@@ -51,7 +51,7 @@
 
         <div id="reservation-info">
           <label for="date">Date:</label>
-          <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($old['date'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['date']) ? 'input-error' : ''; ?>">
+          <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($old['date'] ?? $selectedDate, ENT_QUOTES, 'UTF-8'); ?>" required class="<?php echo !empty($errors['date']) ? 'input-error' : ''; ?>" onchange="window.location.search = '?date=' + this.value">
           <?php if (!empty($errors['date'])): ?>
             <span class="field-error"><?php echo htmlspecialchars($errors['date'][0], ENT_QUOTES, 'UTF-8'); ?></span>
           <?php endif; ?>

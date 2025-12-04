@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Database\Connection;
+use App\Services\Logger;
 use PDO;
 use PDOException;
 
@@ -41,8 +42,11 @@ class ReservationRepository
 
   public function getOccupiedTimeSlots(string $date): array
   {
+    Logger::info('Repo: checking occupied slots', ['date' => $date]);
     $stmt = $this->pdo->prepare('SELECT time FROM reservations WHERE date = :date');
     $stmt->execute([':date' => $date]);
-    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $slots = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    Logger::info('Repo: found occupied slots', ['date' => $date, 'count' => count($slots), 'slots' => $slots]);
+    return $slots;
   }
 }

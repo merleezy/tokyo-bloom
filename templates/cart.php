@@ -1,6 +1,7 @@
 <?php $pageTitle = $title ?? 'Your Cart'; ?>
-  <header id="site-header">
-  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>" alt="Tokyo Bloom Logo" id="site-logo"></a>
+<header id="site-header">
+  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>"
+      alt="Tokyo Bloom Logo" id="site-logo"></a>
   <nav id="nav-bar">
     <ul>
       <li><a href="<?php echo base_url('/'); ?>">Home</a></li>
@@ -46,17 +47,16 @@
             <?php foreach ($cart as $row): ?>
               <tr>
                 <td data-label="Item"><?php echo htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td data-label="Price">$<?php echo number_format((float)$row['price'], 2); ?></td>
+                <td data-label="Price">$<?php echo number_format((float) $row['price'], 2); ?></td>
                 <td data-label="Quantity">
-                  <input type="number" name="quantity[<?php echo (int)$row['id']; ?>]" value="<?php echo (int)$row['quantity']; ?>" min="0">
+                  <input type="number" name="quantity[<?php echo (int) $row['id']; ?>]"
+                    value="<?php echo (int) $row['quantity']; ?>" min="0">
                 </td>
-                <td data-label="Subtotal">$<?php echo number_format((float)$row['subtotal'], 2); ?></td>
+                <td data-label="Subtotal">$<?php echo number_format((float) $row['subtotal'], 2); ?></td>
                 <td data-label="Action">
-                  <button type="submit"
-                          formaction="<?php echo base_url('/cart/remove'); ?>"
-                          name="item_id"
-                          value="<?php echo (int)$row['id']; ?>"
-                          style="background:none; border:none; color: #C91818; text-decoration: underline; cursor:pointer; padding:0; font-size:inherit;">
+                  <button type="submit" formaction="<?php echo base_url('/cart/remove'); ?>" name="item_id"
+                    value="<?php echo (int) $row['id']; ?>"
+                    style="background:none; border:none; color: #C91818; text-decoration: underline; cursor:pointer; padding:0; font-size:inherit;">
                     Remove
                   </button>
                 </td>
@@ -65,7 +65,7 @@
           </tbody>
         </table>
 
-        <p class="cart-total"><strong>Total:</strong> $<?php echo number_format((float)($totals['total'] ?? 0), 2); ?></p>
+        <p class="cart-total"><strong>Total:</strong> $<?php echo number_format((float) ($totals['total'] ?? 0), 2); ?></p>
 
         <div class="cart-actions">
           <button type="submit">Update Cart</button>
@@ -74,13 +74,40 @@
       </form>
 
       <div class="cart-actions" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid #E0E0E0;">
-        <a href="<?php echo base_url('/checkout'); ?>" class="button-link" style="font-size: 1.05rem; padding: 0.7rem 1.5rem;">Proceed to Checkout</a>
+        <a href="<?php echo base_url('/checkout'); ?>" class="button-link"
+          style="font-size: 1.05rem; padding: 0.7rem 1.5rem;">Proceed to Checkout</a>
 
-        <form action="<?php echo base_url('/cart/clear'); ?>" method="post" style="display:inline-block; margin-left:1rem;">
+        <form action="<?php echo base_url('/cart/clear'); ?>" method="post"
+          style="display:inline-block; margin-left:1rem;">
           <?php echo csrf_field(); ?>
-          <button type="submit" style="background-color: #666; font-size: 0.9rem;" onclick="return confirm('Clear all items from cart?');">Clear Cart</button>
+          <button type="submit" style="background-color: #666; font-size: 0.9rem;"
+            onclick="return confirm('Clear all items from cart?');">Clear Cart</button>
         </form>
       </div>
     <?php endif; ?>
   </section>
+
+  <footer id="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Tokyo Bloom</h3>
+        <p>Authentic Japanese cuisine<br>in the heart of the city</p>
+      </div>
+      <div class="footer-section">
+        <h3>Location</h3>
+        <p>123 Sakura Boulevard<br>Downtown District<br>San Francisco, CA 94102</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Phone: (415) 555-SUSHI<br>Email: info@tokyobloom.com</p>
+      </div>
+      <div class="footer-section">
+        <h3>Hours</h3>
+        <p>Mon-Fri: 11am - 10pm<br>Sat: 5pm - 11pm<br>Sun: Closed</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Tokyo Bloom Sushi and Grill. All rights reserved.</p>
+    </div>
+  </footer>
 </main>

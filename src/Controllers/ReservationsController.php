@@ -13,6 +13,7 @@ class ReservationsController extends Controller
   {
     $error = $_GET['error'] ?? '';
     $selectedDate = $_GET['date'] ?? date('Y-m-d');
+    Logger::info('Reservations: index page loaded', ['date' => $selectedDate]);
 
     $repo = new ReservationRepository();
     $occupiedSlots = $repo->getOccupiedTimeSlots($selectedDate);
