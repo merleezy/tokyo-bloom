@@ -1,15 +1,8 @@
 # Tokyo Bloom Sushi and Grill
 
-**Modern Japanese Restaurant Website with MVC Architecture**
-
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Mobile](https://img.shields.io/badge/Mobile-Responsive-blue)
-![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4)
-![Architecture](https://img.shields.io/badge/Architecture-MVC-orange)
-
 ## Project Overview
 
-Tokyo Bloom is a fully-featured, modern Japanese restaurant website built with clean MVC architecture. Features include online ordering with session-based cart, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system. The site showcases authentic Japanese cuisine with an elegant, responsive design optimized for both desktop and mobile experiences.
+Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include online ordering with a session-based cart, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system.
 
 ## Key Features
 
@@ -124,23 +117,6 @@ Supporting Colors:
 └─ Deep Cherry      #A00E1A  → Hover / active states
 ```
 
-### **Typography**
-
-- **Headings:** Lulo Clean (Bold, Display)
-- **Body Text:** Sohne Buch (Regular, Sans-serif)
-- **Fallback:** System UI fonts for optimal performance
-
-### **Design Patterns**
-
-- White content cards with soft shadows
-- Pink accent borders on interactive elements
-- Gradient section dividers
-- Rounded corners (8px-18px)
-- Smooth hover transitions (0.3s ease)
-- Consistent spacing (1rem base unit)
-
----
-
 ## Database Schema
 
 ### **orders**
@@ -200,8 +176,6 @@ created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 - HTML5 (Semantic markup)
 - CSS3 (Custom properties, Grid, Flexbox)
 - Vanilla JavaScript (ES6+)
-- Dynamic hero image slider
-- Form validation
 
 ### **Backend**
 
@@ -305,55 +279,6 @@ composer update
 composer dump-autoload
 ```
 
-### **Configuration Notes**
-
-- **Document Root**: Point Apache to `public/` directory for production
-- **URL Rewriting**: Requires `mod_rewrite` enabled in Apache
-- **PHP Extensions**: Ensure `pdo_mysql`, `mbstring`, `openssl` are enabled
-- **Permissions**: Logs directory needs write permissions (755)
-- **Email**: Configure SMTP settings in `.env` for contact form
-- **Sessions**: PHP session.save_path must be writable
-
----
-
-## Development
-
-### **Adding New Routes**
-
-Edit `routes/web.php`:
-
-```php
-$router->get('/your-route', [YourController::class, 'method']);
-$router->post('/your-route', [YourController::class, 'store']);
-```
-
-### **Validation Example**
-
-```php
-use App\Services\Validator;
-
-$validator = new Validator();
-if ($validator->validate($_POST, [
-   'name' => 'required|min:2',
-   'email' => 'required|email',
-   'guests' => 'required|integer|min:1|max:20',
-])) {
-   // Process valid data
-   $errors = $validator->errors();
-}
-```
-
-### **Logging Example**
-
-```php
-use App\Services\Logger;
-
-Logger::info('Order placed', ['order_id' => $orderId]);
-Logger::error('Payment failed', ['error' => $e->getMessage()]);
-```
-
----
-
 ## API Endpoints
 
 All endpoints are accessed via clean URLs:
@@ -374,68 +299,6 @@ All endpoints are accessed via clean URLs:
 - `POST /reservations/cancel` - Cancel reservation
 - `GET /contact` - Contact form
 - `POST /contact` - Send message
-
----
-
-## User Workflows
-
-### **Browse & Order**
-
-1. Visit home page
-2. Click "Order Online" or navigate to Menu
-3. Browse menu items by category
-4. Add items to cart with quantity
-5. Review cart and update as needed
-6. Proceed to checkout
-7. Enter delivery information
-8. Confirm order
-
-### **Make Reservation**
-
-1. Navigate to Reservations page
-2. Fill out form (date, time, party size, contact info)
-3. Submit reservation
-4. View confirmation with details
-5. Option to cancel if needed
-
-### **Contact Restaurant**
-
-1. Navigate to Contact page
-2. Fill out contact form
-3. Submit message
-4. Receive confirmation
-
----
-
-## Configuration
-
-### **Hours Settings**
-
-Edit in `js/scripts.js`:
-
-```javascript
-const hours = {
-  monday: { open: "11:00", close: "22:00" },
-  // ... etc
-};
-```
-
-### **Menu Items**
-
-Add items via phpMyAdmin or create a seeder:
-
-```sql
-INSERT INTO menu_items (name, description, price, category, image_url)
-VALUES ('California Roll', 'Fresh avocado and crab', 12.99, 'Sushi', 'images/menu/california-roll.jpg');
-```
-
-### **Images**
-
-- Hero images: `images/`
-- Menu items: `images/menu/`
-- Store assets in `public/` directory
-
----
 
 ## Troubleshooting
 
@@ -473,5 +336,4 @@ VALUES ('California Roll', 'Fresh avocado and crab', 12.99, 'Sushi', 'images/men
 
 **Last Updated:** December 1, 2025  
 **Version:** 2.0.0  
-**Status:** Production Ready  
-**Architecture:** MVC with PSR-4 Autoloading  
+**Status:** Complete
