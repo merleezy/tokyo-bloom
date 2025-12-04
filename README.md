@@ -2,26 +2,27 @@
 
 ## Project Overview
 
-Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include online ordering with a session-based cart, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system.
+Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include a home page with Google Maps integration, an online ordering and checkout system, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system.  
+Made as part of a school project/learning experience.
 
 ## Key Features
 
 ### **MVC Architecture**
 
-- **Front Controller Pattern** - Single entry point (`public/index.php`)
+- **Front Controller Pattern** - Single entry point
 - **Router** - Clean URL routing with RESTful conventions
 - **Controllers** - Business logic separation (Home, Menu, Order, Cart, Checkout, Reservations, Contact)
 - **Repositories** - Data access layer with PDO
 - **Templates** - Reusable views with layout system
 - **Services** - Validation, logging, and utilities
-- **Composer Autoloading** - PSR-4 namespacing (`App\` namespace)
+- **Composer Autoloading** - PSR-4 namespacing
 
 ### **Security Features**
 
 - CSRF protection on all forms
 - Prepared statements (SQL injection prevention)
 - Input validation and sanitization
-- Environment variables (`.env`) for sensitive data
+- Environment variables for sensitive data
 - Secure session management
 - XSS protection headers
 - File access restrictions via `.htaccess`
@@ -29,8 +30,8 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include on
 ### **Home Page**
 
 - Dynamic hero section with sliding background images
-- Comprehensive "About Us" with restaurant history (est. 2018)
-- Feature cards highlighting key offerings (Fresh Ingredients, Expert Chefs, Authentic Experience, Private Events)
+- Comprehensive "About Us" with restaurant history
+- Feature cards highlighting key offerings
 - Interactive reservation call-to-action
 - Dedicated location section with contact information
 - Integrated Google Maps for easy directions
@@ -38,17 +39,15 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include on
 - Visual section dividers with gradient effects
 - Category quick-jump navigation
 
-### **Menu Page** (Browse-Only)
+### **Menu Page**
 
-- **Grid card layout** for easy scanning of all menu items
-- Organized by categories (Appetizers, Sushi, Main Courses, Desserts, Drinks)
+- Grid card layout for easy scanning of all menu items
+- Organized by categories
 - Category navigation bar with smooth scroll-to-section
-- High-quality food photography
-- Detailed descriptions and pricing
 - Hover effects and animations
 - Call-to-action to order online
 
-### **Order Online Page** (E-Commerce)
+### **Order Online Page**
 
 - Full shopping cart functionality
 - Add items with quantity selection
@@ -73,7 +72,7 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include on
 ### **Checkout Process**
 
 - Professional order review interface
-- Customer information form (name, email, phone)
+- Customer information form
 - Delivery address input
 - Special instructions field
 - Order summary with itemized breakdown
@@ -88,12 +87,10 @@ Tokyo Bloom is a fully-featured, modern Japanese restaurant. Features include on
 - Contact information collection
 - Email confirmation
 - Reservation management (view/cancel)
-- Beautiful confirmation pages
 - Database-backed reservation storage
 
 ### **Contact Page**
 
-- Styled contact form with dark theme
 - Grid layout for clean information display
 - Email integration via PHPMailer
 - Confirmation page after submission
@@ -313,24 +310,6 @@ All endpoints are accessed via clean URLs:
 - Verify MySQL service is running
 - Check credentials in `.env`
 - Ensure database exists
-
-### **404 on Routes**
-
-- Enable `mod_rewrite` in Apache
-- Check `.htaccess` exists in `public/`
-- Verify document root points to `public/`
-
-### **CSRF Token Mismatch**
-
-- Ensure sessions are working (check `session.save_path`)
-- Clear browser cookies
-- Check `csrf_field()` is in all forms
-
-### **Email Not Sending**
-
-- Configure SMTP settings in `.env`
-- Check PHP `mail()` configuration
-- Test with local mail server (MailHog, Mailpit)
 
 ---
 
