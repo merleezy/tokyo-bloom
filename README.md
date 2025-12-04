@@ -1,6 +1,6 @@
 # Tokyo Bloom Sushi and Grill
 
-![Project Gif](doc-imgs/tokyo-bloom-hero-slider.gif) 
+![Project Gif](doc-img/tokyo-bloom-hero-slider.gif) 
 
 ## Project Overview
 
