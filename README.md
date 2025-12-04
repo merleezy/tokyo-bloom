@@ -19,8 +19,16 @@ Features include a home page with Google Maps integration, an online ordering an
 ## Tech Stack
 ![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?style=flat&logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=flat&logo=mysql&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![HTML](https://img.shields.io/badge/HTML-23628F?style=flat&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=white)
 ![Composer](https://img.shields.io/badge/Composer-885630?style=flat&logo=composer&logoColor=white)
+![XAMPP](https://img.shields.io/badge/XAMPP-000000?style=flat&logo=xampp&logoColor=white)
+![Apache](https://img.shields.io/badge/Apache-000000?style=flat&logo=apache&logoColor=white)
+![Git](https://img.shields.io/badge/Git-000000?style=flat&logo=git&logoColor=white)
+![PHPMailer](https://img.shields.io/badge/PHPMailer-000000?style=flat&logo=phpmailer&logoColor=white)
+![Monolog](https://img.shields.io/badge/Monolog-000000?style=flat&logo=monolog&logoColor=white)
+![Dotenv](https://img.shields.io/badge/Dotenv-000000?style=flat&logo=dotenv&logoColor=white)
 
 ## Key Challenges and Solutions
 *   **Challenge:** [to be added]
