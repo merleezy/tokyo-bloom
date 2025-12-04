@@ -159,9 +159,9 @@ Secondary Font: Sohne Buch
 
 ### **Frontend**
 
-- HTML
-- CSS
-- JavaScript
+- HTML5
+- CSS3
+- JavaScript ES6+
 
 ### **Backend**
 
