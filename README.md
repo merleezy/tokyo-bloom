@@ -26,9 +26,6 @@ Features include a home page with Google Maps integration, an online ordering an
 ![XAMPP](https://img.shields.io/badge/XAMPP-000000?style=flat&logo=xampp&logoColor=white)
 ![Apache](https://img.shields.io/badge/Apache-000000?style=flat&logo=apache&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-000000?style=flat&logo=git&logoColor=white)
-![PHPMailer](https://img.shields.io/badge/PHPMailer-000000?style=flat&logo=phpmailer&logoColor=white)
-![Monolog](https://img.shields.io/badge/Monolog-000000?style=flat&logo=monolog&logoColor=white)
-![Dotenv](https://img.shields.io/badge/Dotenv-000000?style=flat&logo=dotenv&logoColor=white)
 
 ## Key Challenges and Solutions
 *   **Challenge:** [to be added]
