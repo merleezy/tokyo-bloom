@@ -1,5 +1,6 @@
 <header id="site-header">
-  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>" alt="Tokyo Bloom Logo" id="site-logo"></a>
+  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>"
+      alt="Tokyo Bloom Logo" id="site-logo"></a>
   <nav id="nav-bar">
     <ul>
       <li><a href="<?php echo base_url('/'); ?>">Home</a></li>
@@ -19,9 +20,11 @@
   <section id="reservation-section-page" style="margin: 3rem auto;">
     <h2 style="color: #2ecc71; margin-bottom: 1rem;">✓ Booking Successful!</h2>
     <p style="font-size: 1.15rem; margin-bottom: 2rem;">Thank you,
-      <strong><?= htmlspecialchars($reservation['name']) ?></strong>. Your table has been reserved.</p>
+      <strong><?= htmlspecialchars($reservation['name']) ?></strong>. Your table has been reserved.
+    </p>
 
-    <div style="background-color: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; margin: 2rem 0; text-align: left;">
+    <div
+      style="background-color: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; margin: 2rem 0; text-align: left;">
       <h3 style="margin-top: 0; color: #F5B7C3; font-size: 1.2rem; text-align: center; margin-bottom: 1.5rem;">
         Reservation Details</h3>
 
@@ -36,13 +39,15 @@
         </div>
         <div style="text-align: center; padding: 1rem;">
           <div style="font-size: 0.9rem; color: #F5B7C3; margin-bottom: 0.5rem;">PARTY SIZE</div>
-          <div style="font-size: 1.2rem; font-weight: 600;"><?= htmlspecialchars($reservation['guests']) ?> <?= ((int)$reservation['guests'] === 1) ? 'Guest' : 'Guests' ?></div>
+          <div style="font-size: 1.2rem; font-weight: 600;"><?= htmlspecialchars($reservation['guests']) ?>
+            <?= ((int) $reservation['guests'] === 1) ? 'Guest' : 'Guests' ?></div>
         </div>
       </div>
 
       <hr style="border: none; height: 1px; background: rgba(255,255,255,0.2); margin: 1.5rem 0;">
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; font-size: 0.95rem;">
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; font-size: 0.95rem;">
         <div>
           <span style="color: #F5B7C3;">Email:</span><br>
           <?= htmlspecialchars($reservation['email']) ?>
@@ -64,11 +69,14 @@
       <a href="<?php echo base_url('/menu'); ?>" class="button-link" style="background-color: #666;">View Menu</a>
     </div>
 
-    <form action="<?php echo base_url('/reservations/cancel'); ?>" method="post" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+    <form action="<?php echo base_url('/reservations/cancel'); ?>" method="post"
+      style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
       <?php echo csrf_field(); ?>
       <input type="hidden" name="id" value="<?= htmlspecialchars($reservation['id']) ?>">
       <p style="font-size: 0.9rem; color: #CCC; margin-bottom: 1rem;">Need to change your plans?</p>
-      <button type="submit" style="background-color: #e74c3c; padding: 0.6rem 1.5rem; border-radius: 999px; border: none; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Cancel Reservation</button>
+      <button type="submit"
+        style="background-color: #e74c3c; padding: 0.6rem 1.5rem; border-radius: 999px; border: none; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Cancel
+        Reservation</button>
     </form>
   </section>
 

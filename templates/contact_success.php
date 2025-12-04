@@ -1,5 +1,6 @@
 <header id="site-header">
-  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>" alt="Tokyo Bloom Logo" id="site-logo"></a>
+  <a href="<?php echo base_url('/'); ?>#top"><img src="<?php echo asset_url('images/tokyo_bloom_logo.png'); ?>"
+      alt="Tokyo Bloom Logo" id="site-logo"></a>
   <nav id="nav-bar">
     <ul>
       <li><a href="<?php echo base_url('/'); ?>">Home</a></li>
@@ -21,7 +22,7 @@
     <p style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 2rem;">
       We have received your message and will get back to you as soon as possible.
     </p>
-    
+
     <div style="background-color: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
       <p style="font-size: 1rem; line-height: 1.8; margin: 0; text-align: center;">
         <strong>Response Time:</strong> Typically within 24 hours<br>
