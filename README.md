@@ -27,13 +27,50 @@ Features include a home page with Google Maps integration, an online ordering an
 ![Git](https://img.shields.io/badge/Git-000000?style=flat&logo=git&logoColor=white)
 
 ## Key Challenges and Solutions
-**Challenge:** Getting the reservation system to lock reserved times and display that in the UI in real time.  
-**Solution:** Adding a small segment of code to refresh the page every time the user changes the data, and writing a JavaScript script to ensure form data is carried across during the refresh.  
   
-**Challenge:**  
-**Solution:**  
-
-## Features
+**Challenge:** Converting a legacy procedural codebase to a maintainable MVC architecture  
+  
+Situation: The original codebase mixed routing, SQL execution, views, and logic inside single files, making debugging slow and changes risky.  
+Task: Re-architect the project into an MVC pattern without breaking existing flows.  
+Action: Introduced controllers, refactored page logic into reusable methods, reorganized folder structure, and extracted database access into model classes using PDO prepared statements.  
+Result: Reduced duplicated logic, improved readability, and enabled future features to be developed faster and with lower risk.  
+  
+**Challenge:** Mitigating XSS/CSRF vulnerabilities in reservation and ordering flows  
+  
+Situation: User-submitted fields were used directly in dynamic UI rendering and database queries.  
+Task: Harden the application’s input/output surfaces to ensure security and trustworthiness.  
+Action: Added CSRF token validation to all form submissions, implemented output sanitization, and enforced prepared statements to handle SQL safely.  
+Result: Eliminated exploit vectors, reduced data corruption risk, and met secure development practices for production environments.  
+  
+**Challenge:** Credential leakage risk and inconsistent environment configuration  
+  
+Situation: Credentials were previously stored directly in the repository, and configuration files lacked a centralized structure, creating security and deployment friction.  
+Task: Improve deployment hygiene and ensure sensitive information is not stored in source control.  
+Action: Implemented phpdotenv, separated runtime configuration, created standardized environment templates, and documented deployment steps.  
+Result: Secured production credentials, eased onboarding, and improved portability across developer environments.  
+  
+**Challenge:** Developer friction due to a lack of runtime debugging visibility  
+  
+Situation: Errors were logged inconsistently or silently, requiring guesswork when debugging.  
+Task: Introduce structured logging for visibility and debugging efficiency.  
+Action: Integrated Monolog, configured formatters, added contextual logging, and routed logs to file handlers.  
+Result: Significantly reduced time to diagnose and reproduce issues, and enabled systematic monitoring of system behavior.  
+  
+**Challenge:** Reservation system needed real-time availability updates  
+  
+Situation: Multiple users could attempt to reserve overlapping slots without visibility into existing reservations.  
+Task: Ensure users view accurate availability to prevent collisions.  
+Action: Implemented live refresh logic on UI interaction events and retained form state through JavaScript to avoid user frustration.  
+Result: Improved UX, prevented overbooking scenarios, and increased system consistency.  
+  
+**Challenge:** Lack of documentation and inconsistent onboarding for developers  
+  
+Situation: Developers struggled to spin up the system due to missing installation/setup instructions.  
+Task: Improve onboarding experience and ensure the system could be understood and extended.  
+Action: Authored architecture documentation, setup guides, database schema definitions, and workflow notes.  
+Result: Reduced onboarding friction dramatically and enabled clean handoff of the system after development.  
+  
+## Features  
 
 ### **MVC Architecture**
 
