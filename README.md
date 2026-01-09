@@ -16,31 +16,7 @@ Features include a home page with Google Maps integration, an online ordering an
 *   **RESTful Routing:** Clean URL structure handling dynamic routes and controller dispatching.
 *   **Database:** Relational MySQL schema managing relationships between Orders, Items, and Reservations.
 
-## Design System (for personal reference)
-
-### **Color Palette**
-
-```
-Primary Colors:
-  Crimson Red      #C91818 -> Main accent / CTA buttons
-  Sakura Pink      #F5B7C3 -> Highlights / borders
-  Charcoal Black   #1E1E1E -> Headers / dark sections
-  Pure White       #FFFFFF -> Text / light backgrounds
-
-Supporting Colors:
-  Slate Gray       #3A3A3A -> Body text / descriptions
-  Warm Beige       #F9E8D9 -> Page background
-  Deep Cherry      #A00E1A -> Hover / active states
-```
-
-### **Typography**
-
-```
-Primary Font: Lulo Clean
-Secondary Font: Sohne Buch
-```
-
-## Full Technical Stack
+## Full Tech Stack
 
 ### **Frontend**
 
@@ -101,3 +77,27 @@ Secondary Font: Sohne Buch
    ```
    http://localhost/tokyo-bloom/public
    ```
+
+## Design System (for personal reference)
+
+### **Color Palette**
+
+```
+Primary Colors:
+  Crimson Red      #C91818 -> Main accent / CTA buttons
+  Sakura Pink      #F5B7C3 -> Highlights / borders
+  Charcoal Black   #1E1E1E -> Headers / dark sections
+  Pure White       #FFFFFF -> Text / light backgrounds
+
+Supporting Colors:
+  Slate Gray       #3A3A3A -> Body text / descriptions
+  Warm Beige       #F9E8D9 -> Page background
+  Deep Cherry      #A00E1A -> Hover / active states
+```
+
+### **Typography**
+
+```
+Primary Font: Lulo Clean
+Secondary Font: Sohne Buch
+```
