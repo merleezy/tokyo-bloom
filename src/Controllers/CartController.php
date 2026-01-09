@@ -14,7 +14,6 @@ class CartController extends Controller
   {
     $cart = $_SESSION['cart'] ?? [];
     
-    // In a real DI container we'd inject this, but for now instantiate
     $basePath = dirname(__DIR__, 2);
     $config = require $basePath . '/config/app.php';
     
