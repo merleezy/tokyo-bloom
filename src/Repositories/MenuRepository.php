@@ -13,9 +13,6 @@ class MenuRepository
     $this->pdo = $pdo ?: Connection::make();
   }
 
-  /**
-   * @return array{categories: string[], itemsByCategory: array<string, array<int, array<string,mixed>>>}
-   */
   public function getMenu(): array
   {
     $stmt = $this->pdo->query('SELECT * FROM menu_items ORDER BY category, name');
