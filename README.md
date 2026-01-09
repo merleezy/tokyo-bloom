@@ -4,7 +4,8 @@
 
 ## Project Overview
 
-Tokyo Bloom is a full-stack MVC web application simulating a Japanese restaurant management system. Built using PHP, MySQL, and HTML/CSS/JS to develop and demonstrate a deep understanding of core web development principles and software architecture.  
+Tokyo Bloom is a full-stack MVC web application simulating a Japanese restaurant management system. Built using PHP, MySQL, and HTML/CSS/JS to develop and demonstrate a deep understanding of core web development principles and software architecture. 
+  
 Features include a home page with Google Maps integration, an online ordering and checkout system, reservation management with real-time availability checking, contact forms with email notifications, and a comprehensive menu system.  
 
 <!-- TODO: Add live demo or video walkthrough -->
